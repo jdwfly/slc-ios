@@ -1,5 +1,5 @@
-// Not sure if this line is needed anymore
 require('lib/require').monkeypatch(this);
+Ti.taffy = require('lib/taffy').taffyDb;
 
 // GLOBAL VARS
 var globals = {
@@ -9,8 +9,8 @@ var globals = {
   db: require('lib/db')
 };
 
-// Initialize the database with json
-globals.db.init();
+// Initialize the taffy database with json
+db = globals.db.init();
 
 (function() {
   var WindowObject;

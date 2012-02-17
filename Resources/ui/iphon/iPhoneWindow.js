@@ -15,10 +15,31 @@ exports.iPhoneWindow = function() {
     backgroundColor: '#ffffff'
   });
   var mainWindow = Ti.UI.createWindow({
-    title: 'Testing',
+    title: 'Schedule',
     backgroundColor: '#ffffff',
     leftNavButton: leftNavButton
   });
+  var viewport = Ti.UI.createView({layout: 'vertical'});
+  toolbar = require('ui/common/scheduleToolbar');
+  scheduleToolbar = new toolbar({
+    top: 0,
+    borderTop: false,
+    borderBottom: true,
+    barColor: '#eff1f6',
+    borderColor: '#b9bcc1'
+  });
+  viewport.add(scheduleToolbar);
+  
+  var data = [];
+  db().each(function(e) {
+    data.push({title: e.name});
+  });
+  var tableView = Ti.UI.createTableView({
+    data: data
+  });
+  Ti.API.info(data);
+  viewport.add(tableView);
+  mainWindow.add(viewport);
   var sideMenu = require('ui/common/sideMenu');
   var mainMenu = new sideMenu();
   
