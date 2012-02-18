@@ -7,9 +7,8 @@ exports.scheduleToolbar = function(properties) {
     var buttons = Ti.UI.iOS.createTabbedBar({
       labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed'],
       index: 0,
-      backgroundColor: '#e8ebf0',
-      backgroundImage: 'none',
-      color: '#505c77'
+      backgroundColor: '#707070',
+      backgroundImage: 'none'
     });
     flexSpace = Ti.UI.createButton({
       systemButton: Ti.UI.iPhone.SystemButton.FLEXIBLE_SPACE
