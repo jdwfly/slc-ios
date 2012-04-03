@@ -3,6 +3,7 @@ var _debug = false;
 var _baseUrl = "http://www.lancasterbaptist.org/slc/json";
 var _eventsUrl = "/events";
 var _speakersUrl = "/speakers";
+var _livestreamUrl = "/livestream";
 var _slcDB = Ti.Database.open('slcdb');
 var _speakerData = "";
 
@@ -10,6 +11,7 @@ exports.osname = _osname;
 exports.baseUrl = _baseUrl;
 exports.eventsUrl = _eventsUrl;
 exports.speakersUrl = _speakersUrl;
+exports.livestreamUrl = _livestreamUrl;
 
 // Sets whether we are in debug or not
 // value = Boolean

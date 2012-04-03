@@ -1,5 +1,4 @@
 var globals = require('lib/globals');
-var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
 exports.scheduleWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Schedule',
