@@ -19,7 +19,7 @@ Ti.App.addEventListener('events.update', function(_callback){
       baseUrl: globals.baseUrl,
       retryCount: 2,
       cacheSeconds: 3600,
-      onload: function(response) {
+      onload: (typeof _callback === 'function') ? _callback : function(response) {
         Ti.API.info("Response Data: "+ response.responseText);
         Ti.API.info("Is this cached data?: " + response.cached);
       }
