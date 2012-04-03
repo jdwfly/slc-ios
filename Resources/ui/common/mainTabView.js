@@ -30,7 +30,7 @@ exports.mainTabView = function() {
     window: new speakersWindow()
   });
   
-  var liveWindow = require('ui/common/liveWindow').liveWindow;
+  var liveWindow = require('ui/iphon/liveWindow').liveWindow;
   var liveTab = Ti.UI.createTab({
     icon: 'data/69-display.png',
     title: 'Live',
