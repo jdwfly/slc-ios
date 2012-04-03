@@ -12,7 +12,6 @@ else {
 new MainTabView().open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 
 // Global Event Listeners
-// TODO Make this actually use the _callback
 Ti.App.addEventListener('events.update', function(_callback){
   if (Ti.Network.online) {
     var events_xhr = new HTTPClientWithCache({

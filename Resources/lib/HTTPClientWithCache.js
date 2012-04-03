@@ -124,7 +124,6 @@ To completely clear the cache of every single entry, you can do this:
         this._reset_xhr();
         this.xhr.setTimeout(this.options.timeout);
         Ti.App.fireEvent(this.options.showActivityEvent);
-        Ti.API.info(this.options.baseUrl + this.options.url);
         this.xhr.open(this.options.method, this.options.baseUrl + this.options.url);
         return this.xhr.send(this.options.data != null ? this.options.data : void 0);
       }
