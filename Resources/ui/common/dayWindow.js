@@ -1,11 +1,11 @@
 var globals = require('lib/globals');
-exports.dayWindow = function(day, title) {
+exports.dayWindow = function(opts) {
   var instance = Ti.UI.createWindow({
-    title: title,
+    title: opts.title,
     backgroundColor: '#fff'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
-  var today = new Date(day);
+  var today = new Date(opts.arg);
   
   // Android Specific Code
   if (globals.osname === 'android') {

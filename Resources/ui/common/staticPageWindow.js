@@ -5,7 +5,7 @@ exports.staticPageWindow = function(opts) {
   });
   
   var webView = Ti.UI.createWebView({
-    url: 'ui/static/' + opts.url,
+    url: 'ui/static/' + opts.arg,
     scalesPageToFit: true
   });
   instance.add(webView);

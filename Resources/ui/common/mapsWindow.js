@@ -22,7 +22,7 @@ exports.mapsWindow = function() {
   
   tableView.addEventListener('click', function(f) {
     Ti.App.fireEvent('map.click', {
-      url: f.rowData.arg,
+      arg: f.rowData.arg,
       title: f.rowData.title,
       callback: false
     });

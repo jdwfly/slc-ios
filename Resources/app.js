@@ -38,7 +38,7 @@ Ti.App.addEventListener('events.update', function(_callback){
 Ti.App.addEventListener('schedule.click', function(opts) {
   var className = opts.winClass.split("/");
   var winClass = require(opts.winClass)[className[2]];
-  var scheduleFirstWin = new winClass(opts.arg, opts.title);
+  var scheduleFirstWin = new winClass(opts);
   Ti.API._activeTab.open(scheduleFirstWin, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
