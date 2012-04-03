@@ -42,6 +42,9 @@ exports.liveWindow = function() {
     top: 140,
     backgroundImage: "data/watchlive.jpg"  
   });
+  liveButton.addEventListener('click', function(f) {
+    Ti.App.fireEvent('live.click');
+  });
   instance.add(liveButton);
   
   return instance;
