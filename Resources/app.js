@@ -1,7 +1,7 @@
 // GLOBAL VARS
 var globals = require('lib/globals');
 var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
-Ti.API.info(globals.osname);
+Ti.App.fireEvent('events.update');
 var MainTabView;
 if (globals.osname === 'iphone' || globals.osname === 'android') {
   MainTabView = require('/ui/common/mainTabView').mainTabView;
@@ -17,7 +17,7 @@ Ti.App.addEventListener('events.update', function(_callback){
     var events_xhr = new HTTPClientWithCache({
       baseUrl: globals.baseUrl,
       retryCount: 2,
-      cacheSeconds: 3600,
+      cacheSeconds: 60,
       onload: (typeof _callback === 'function') ? _callback : function(response) {
         Ti.API.info("Response Data: "+ response.responseText);
         Ti.API.info("Is this cached data?: " + response.cached);
@@ -26,6 +26,7 @@ Ti.App.addEventListener('events.update', function(_callback){
     });
     events_xhr.post({url: globals.eventsUrl});
   } else {
+    // Maybe this should fail silently with just a log message
     var dialog = Ti.UI.createAlertDialog({
       message: 'You must be online to refresh the application data.',
       ok: 'Okay',
