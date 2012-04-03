@@ -31,27 +31,16 @@ exports.scheduleWindow = function() {
   }
   
   var scheduleData = [
-    {title: "Registration", hasChild:true, test:'../pages/staticpage.js', staticpage:'registration.html'},
-    {title: "Saturday, June 9", hasChild:true, test:'../pages/day.js', date:'June 9, 2012'},
-    {title: "Sunday, June 10", hasChild:true, test:'../pages/day.js', date:'June 10, 2012'},
-    {title: "Monday, June 11", hasChild:true, test:'../pages/day.js', date:'June 11, 2012'},
-    {title: "Tuesday, June 12", hasChild:true, test:'../pages/day.js', date:'June 12, 2012'},
-    {title: "Wednesday, June 13", hasChild:true, test:'../pages/day.js', date:'June 13, 2012'}];
+    {title: "Registration", hasChild:true, winClass:'ui/common/staticPageWindow', arg:'registration.html'},
+    {title: "Saturday, June 9", hasChild:true, winClass:'ui/common/dayWindow', arg:'June 9, 2012'},
+    {title: "Sunday, June 10", hasChild:true, winClass:'ui/common/dayWindow', arg:'June 10, 2012'},
+    {title: "Monday, June 11", hasChild:true, winClass:'ui/common/dayWindow', arg:'June 11, 2012'},
+    {title: "Tuesday, June 12", hasChild:true, winClass:'ui/common/dayWindow', arg:'June 12, 2012'},
+    {title: "Wednesday, June 13", hasChild:true, winClass:'ui/common/dayWindow', arg:'June 13, 2012'}];
   var scheduleTableView = Ti.UI.createTableView({data:scheduleData});
   
   scheduleTableView.addEventListener('click', function(e) {
-    /*
-      All of this will need to change to App event listener
-    if (e.rowData.test) {
-      slc.scheduleFirstWin = Ti.UI.createWindow({
-        url:e.rowData.test,
-        title:e.rowData.title,
-        staticpage: e.rowData.staticpage,
-        date: e.rowData.date
-      });
-      Ti.UI.currentTab.open(slc.scheduleFirstWin,{animated:true});
-    }
-    */
+    Ti.App.fireEvent('schedule.click', {winClass: e.rowData.winClass, arg: e.rowData.arg, callback: false});
   });
   instance.add(scheduleTableView);
   

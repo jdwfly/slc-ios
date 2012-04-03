@@ -32,3 +32,12 @@ Ti.App.addEventListener('events.update', function(_callback){
     }).show();
   }
 });
+
+Ti.App.addEventListener('schedule.click', function(opts) {
+  var className = opts.winClass.split("/");
+  Ti.API.info("className = " + className);
+  var winClass = require(opts.winClass)[className[2]];
+  Ti.API.info("winClass = " + winClass);
+  var scheduleFirstWin = new winClass();
+  Ti.API._activeTab.open(scheduleFirstWin, {animated: true});
+});

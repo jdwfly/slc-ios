@@ -21,4 +21,3 @@ exports.setDebug = function(value) {
 exports.debug = function() {
   return _debug;
 }
-
