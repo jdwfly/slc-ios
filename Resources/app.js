@@ -21,6 +21,7 @@ Ti.App.addEventListener('events.update', function(_callback){
       onload: (typeof _callback === 'function') ? _callback : function(response) {
         Ti.API.info("Response Data: "+ response.responseText);
         Ti.API.info("Is this cached data?: " + response.cached);
+        globals.slcdbSaveEvents(response.responseText);
       }
     });
     events_xhr.post({url: globals.eventsUrl});
@@ -35,9 +36,7 @@ Ti.App.addEventListener('events.update', function(_callback){
 
 Ti.App.addEventListener('schedule.click', function(opts) {
   var className = opts.winClass.split("/");
-  Ti.API.info("className = " + className);
   var winClass = require(opts.winClass)[className[2]];
-  Ti.API.info("winClass = " + winClass);
-  var scheduleFirstWin = new winClass();
+  var scheduleFirstWin = new winClass(opts.arg, opts.title);
   Ti.API._activeTab.open(scheduleFirstWin, {animated: true});
 });

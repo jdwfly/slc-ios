@@ -40,7 +40,12 @@ exports.scheduleWindow = function() {
   var scheduleTableView = Ti.UI.createTableView({data:scheduleData});
   
   scheduleTableView.addEventListener('click', function(e) {
-    Ti.App.fireEvent('schedule.click', {winClass: e.rowData.winClass, arg: e.rowData.arg, callback: false});
+    Ti.App.fireEvent('schedule.click', {
+      winClass: e.rowData.winClass, 
+      arg: e.rowData.arg,
+      title: e.rowData.title,
+      callback: false
+    });
   });
   instance.add(scheduleTableView);
   
