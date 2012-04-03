@@ -2,11 +2,14 @@ var _osname = Ti.Platform.osname;
 var _debug = false;
 var _baseUrl = "http://www.lancasterbaptist.org/slc/json";
 var _eventsUrl = "/events";
+var _speakersUrl = "/speakers";
 var _slcDB = Ti.Database.open('slcdb');
+var _speakerData = "";
 
 exports.osname = _osname;
 exports.baseUrl = _baseUrl;
 exports.eventsUrl = _eventsUrl;
+exports.speakersUrl = _speakersUrl;
 
 // Sets whether we are in debug or not
 // value = Boolean
@@ -21,6 +24,19 @@ exports.setDebug = function(value) {
 
 exports.debug = function() {
   return _debug;
+}
+
+exports.setSpeakerData = function(value) {
+  if (value) {
+    _speakerData = value;
+    Ti.API.info("_speakerData = " + value);
+    return _speakerData;
+  }
+  return false;
+}
+
+exports.speakerData = function() {
+  return _speakerData;
 }
 
 exports.slcdbSaveEvents = function(events) {
@@ -49,6 +65,28 @@ exports.slcdbSaveEvents = function(events) {
 
 exports.slcdbGetEvents = function(dateString) {
   var result = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" AND day="'+dateString+'" ORDER BY datefrom ASC');
+  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
+  return result;
+}
+
+/**
+ * This will sessions from a certain time and day.
+ *  dateFrom = time value in seconds
+ *  day      = date string formatted like 2011-07-11
+ * Returns a result set of session events only.
+ */
+exports.slcdbGetSessions = function(dateFrom, day) {
+  var result = _slcDB.execute('SELECT DISTINCT * FROM events WHERE eventtype="Session" AND datefrom="'+dateFrom+'" AND day="'+day+'" ORDER BY weight ASC');
+  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
+  return result;
+}
+
+/**
+ * This will get sessions by speaker
+ * snid = Speaker Node ID
+ */
+exports.slcdbGetSessionsSpeaker = function(snid) {
+  var result = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND speaker="'+snid+'"');
   Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
   return result;
 }

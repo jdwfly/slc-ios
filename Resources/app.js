@@ -28,7 +28,35 @@ Ti.App.addEventListener('events.update', function(_callback){
   } else {
     // Maybe this should fail silently with just a log message
     var dialog = Ti.UI.createAlertDialog({
-      message: 'You must be online to refresh the application data.',
+      message: 'You must be online to refresh the schedule data.',
+      ok: 'Okay',
+      title: 'Oh noes!'
+    }).show();
+  }
+});
+
+Ti.App.addEventListener('speakers.update', function(_callback){
+  if (Ti.Network.online) {
+    var speakers_xhr = new HTTPClientWithCache({
+      baseUrl: globals.baseUrl,
+      retryCount: 2,
+      cacheSeconds: 3600,
+      onload: function(response) {
+        Ti.API.info("Response Data: "+ response.responseText);
+        Ti.API.info("Is this cached data?: " + response.cached);
+        globals.setSpeakerData(response.responseText);
+        Ti.App.fireEvent('speakers.updateTableView');
+        if (typeof _callback === 'function') {
+          _callback;
+        }
+      }
+    });
+    //speakers_xhr.prune(0);
+    speakers_xhr.post({url: globals.speakersUrl});
+  } else {
+    // Maybe this should fail silently with just a log message
+    var dialog = Ti.UI.createAlertDialog({
+      message: 'You must be online to refresh the speakers data.',
       ok: 'Okay',
       title: 'Oh noes!'
     }).show();
