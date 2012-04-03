@@ -39,4 +39,18 @@ Ti.App.addEventListener('schedule.click', function(opts) {
   var winClass = require(opts.winClass)[className[2]];
   var scheduleFirstWin = new winClass(opts.arg, opts.title);
   Ti.API._activeTab.open(scheduleFirstWin, {animated: true});
+  // Run user supplied callback
+  if (typeof opts.callback === 'function') {
+    callback();
+  }
+});
+
+Ti.App.addEventListener('day.click', function(opts){
+  var winClass = require('ui/common/workshopWindow').workshopWindow;
+  var workshopWin = new winClass(opts);
+  Ti.API._activeTab.open(workshopWin, {animated: true});
+  // Run user supplied callback
+  if (typeof opts.callback === 'function') {
+    callback();
+  }
 });

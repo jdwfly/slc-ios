@@ -54,7 +54,14 @@ exports.dayWindow = function(day, title) {
   });
   
   tableView.addEventListener('click', function(f){
-    // TODO do something here
+    if (f.rowData.hasChild) {
+      Ti.App.fireEvent('day.click', {
+        header: f.rowData.header,
+        title: f.row.children[0].text,
+        date: today,
+        callback: false
+      });
+    }
   });
   instance.add(tableView);
   
