@@ -21,6 +21,7 @@ function updateSpeakerData() {
         lname: parseView.nodes[i].node.lname,
         slcLocation: parseView.nodes[i].node.location,
         sessions: parseView.nodes[i].node.sessions,
+        img: parseView.nodes[i].node.img,
         hasChild: true
       });
     } else {
@@ -33,6 +34,7 @@ function updateSpeakerData() {
         fname: parseView.nodes[i].node.fname,
         lname: parseView.nodes[i].node.lname,
         slcLocation: parseView.nodes[i].node.location,
+        img: parseView.nodes[i].node.img,
         hasChild: true,
         header: firstLetter
       });
@@ -81,6 +83,19 @@ exports.speakersWindow = function() {
   
   instance.addEventListener('focus', function(f) {
     Ti.App.fireEvent('speakers.update');
+  });
+  instance.addEventListener('click', function(f) {
+    Ti.App.fireEvent('speakers.click', {
+      winClass: 'ui/common/speakerDetailWindow',
+      title: f.rowData.title,
+      nid: f.rowData.nid,
+      bio: f.rowData.bio,
+      sessions: f.rowData.sessions,
+      fname: f.rowData.fname,
+      lname: f.rowData.lname,
+      slcLocation: f.rowData.slcLocation,
+      img: f.rowData.img
+    });
   });
   
   return instance;

@@ -29,7 +29,6 @@ exports.debug = function() {
 exports.setSpeakerData = function(value) {
   if (value) {
     _speakerData = value;
-    Ti.API.info("_speakerData = " + value);
     return _speakerData;
   }
   return false;
@@ -128,3 +127,30 @@ exports.html_decode = function(string) {
   return string;
 }
 
+// Helper function to give the textual representation of the day of the week
+// BOO on you javascript for only giving me a number
+// daynum = a date string formatted 2011-07-11
+exports.DayofWeek = function(daynum) {
+  if (daynum == null) {
+    return;
+  }
+  var d = new Date();
+  var e = daynum.split("-");
+  d.setFullYear(parseInt(e[0]), (parseInt(e[1])-1), parseInt(e[2]));
+  switch (d.getDay()) {
+    case 0:
+      return "Sunday";
+    case 1:
+      return "Monday";
+    case 2:
+      return "Tuesday";
+    case 3:
+      return "Wednesday";
+    case 4:
+      return "Thursday";
+    case 5:
+      return "Friday";
+    case 6:
+      return "Saturday";
+  }
+}

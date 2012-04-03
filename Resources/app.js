@@ -93,3 +93,13 @@ Ti.App.addEventListener('map.click', function(opts) {
     callback();
   }
 });
+
+Ti.App.addEventListener('speakers.click', function(opts) {
+  var winClass = require('ui/common/speakerDetailWindow').speakerDetailWindow;
+  var speakerDetailWindow = new winClass(opts);
+  Ti.API._activeTab.open(speakerDetailWindow, {animated: true});
+  // Run user supplied callback
+  if (typeof opts.callback === 'function') {
+    callback();
+  }
+});
