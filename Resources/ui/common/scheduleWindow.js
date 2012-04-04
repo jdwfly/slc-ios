@@ -2,7 +2,8 @@ var globals = require('lib/globals');
 exports.scheduleWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Schedule',
-    backgroundColor: '#fff'
+    backgroundColor: '#eeeeee',
+    barColor: '#3b587b'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
   
