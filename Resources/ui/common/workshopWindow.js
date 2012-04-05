@@ -1,8 +1,9 @@
 var globals = require('lib/globals');
 exports.workshopWindow = function(opts) {
   var instance = Ti.UI.createWindow({
-    title: opts.title,
-    backgroundColor: '#fff'
+    title: opts.workshop.fieldByName('title'),
+    backgroundColor: '#eeeeee',
+    barColor: '#3b587b'
   });
   
   return instance;

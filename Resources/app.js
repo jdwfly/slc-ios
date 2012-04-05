@@ -67,9 +67,14 @@ Ti.App.addEventListener('speakers.update', function(_callback){
 });
 
 Ti.App.addEventListener('schedule.click', function(opts) {
-  var className = opts.winClass.split("/");
-  var winClass = require(opts.winClass)[className[2]];
-  var scheduleFirstWin = new winClass(opts);
+  var winClass = require('ui/common/workshopWindow').workshopWindow;
+  var nodeData = globals.dbGetWorkshopEvents(opts.nid);
+  var workshop = globals.dbGetSingleEvent(opts.nid);
+  var args = {
+    workshop: workshop,
+    nodes: nodeData
+  };
+  var scheduleFirstWin = new winClass(args);
   Ti.API._activeTab.open(scheduleFirstWin, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {

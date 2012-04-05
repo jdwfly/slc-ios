@@ -77,6 +77,23 @@ exports.dbGetEvents = function() {
   return result;
 }
 
+// nid = Node ID of event requesting
+// returns node data of certain node ID
+exports.dbGetSingleEvent = function(nid) {
+  var result = _slcDB.execute('SELECT * FROM events WHERE nid='+nid);
+  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
+  return result;
+}
+
+// nid = Node of Parent Workshop
+// returns result array of children sessions during parent workshop time
+exports.dbGetWorkshopEvents = function(nid) {
+  var parentNode = _slcDB.execute('SELECT * FROM events WHERE nid='+nid);
+  var result = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND day='+parentNode.fieldByName('day')+' AND datefrom='+parentNode.fieldByName('datefrom')+' ORDER BY weight ASC');
+  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
+  return result;
+};
+
 /**
  * This will sessions from a certain time and day.
  *  dateFrom = time value in seconds
