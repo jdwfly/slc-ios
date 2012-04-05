@@ -2,7 +2,8 @@ var globals = require('lib/globals');
 exports.mapsWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Maps',
-    backgroundColor: '#fff'
+    backgroundColor: '#eeeeee',
+    barColor: '#3b587b'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
   if (globals.osname === 'android') {

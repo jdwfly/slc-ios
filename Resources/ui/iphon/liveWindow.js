@@ -2,7 +2,8 @@ var globals = require('lib/globals');
 exports.liveWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Live Stream',
-    backgroundColor: '#313131'
+    backgroundColor: '#313131',
+    barColor: '#3b587b'
   });
   
   // Android Specific Code

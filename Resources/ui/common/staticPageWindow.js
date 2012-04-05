@@ -1,7 +1,8 @@
 exports.staticPageWindow = function(opts) {
   var instance = Ti.UI.createWindow({
     title: opts.title,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#eeeeee',
+    barColor: '#3b587b'
   });
   
   var webView = Ti.UI.createWebView({

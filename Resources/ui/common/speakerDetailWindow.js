@@ -3,7 +3,8 @@ var globals = require('lib/globals');
 exports.speakerDetailWindow = function(opts) {
   instance = Ti.UI.createWindow({
     title: opts.title,
-    backgroundColor: "#313131"
+    backgroundColor: "#313131",
+    barColor: '#3b587b'
   });
   var sdata = [];
   var headerRow = Ti.UI.createTableViewRow({
