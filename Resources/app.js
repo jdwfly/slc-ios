@@ -17,11 +17,14 @@ Ti.App.addEventListener('events.update', function(_callback){
     var events_xhr = new HTTPClientWithCache({
       baseUrl: globals.baseUrl,
       retryCount: 2,
-      cacheSeconds: 60,
-      onload: (typeof _callback === 'function') ? _callback : function(response) {
+      cacheSeconds: 10,
+      onload: function(response) {
         Ti.API.info("Response Data: "+ response.responseText);
         Ti.API.info("Is this cached data?: " + response.cached);
         globals.slcdbSaveEvents(response.responseText);
+        if (typeof _callback === 'function') {
+          _callback;
+        }
       }
     });
     events_xhr.post({url: globals.eventsUrl});
