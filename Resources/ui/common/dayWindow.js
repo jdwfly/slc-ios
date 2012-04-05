@@ -1,3 +1,5 @@
+// THIS FILE MAY BE REMOVED BEFORE TESTING
+// WARNING: NONE OF THIS CODE IS ACUTALLY NEEDED
 var globals = require('lib/globals');
 exports.dayWindow = function(opts) {
   var instance = Ti.UI.createWindow({
