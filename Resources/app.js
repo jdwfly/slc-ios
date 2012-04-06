@@ -82,6 +82,7 @@ Ti.App.addEventListener('schedule.click', function(opts) {
   }
 });
 
+// TODO: Remove this code, no longer needed.
 Ti.App.addEventListener('day.click', function(opts){
   var winClass = require('ui/common/workshopWindow').workshopWindow;
   var workshopWin = new winClass(opts);
