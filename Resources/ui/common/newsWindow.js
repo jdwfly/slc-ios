@@ -31,7 +31,7 @@ exports.newsWindow = function() {
     height: 30
   })
   navBar.addEventListener('click', function(x) {
-    // TODO do something with the clicks
+    Ti.App.fireEvent('news.updateTableViewData');
   });
   instance.titleControl = navBar;
   
@@ -41,7 +41,7 @@ exports.newsWindow = function() {
     backgroundColor: '#eeeeee'
   });
   newsTableView.addEventListener('click', function(x) {
-    // TODO do something with clicks or not :)
+    // TODO do something with the clicks
   });
   instance.add(newsTableView);
   
@@ -58,10 +58,10 @@ Ti.App.addEventListener('news.updateTableViewData', function(x) {
     getTweetData();
   }
   if (navBar.index == 1) {
-    tableData = getPhotoData();
+    getPhotoData();
   }
   if (navBar.index == 2) {
-    tableData = getVideoData();
+    getVideoData();
   }
 });
 
@@ -170,7 +170,8 @@ function getTweetData() {
 }
 
 function getPhotoData() {
-  
+  var data = [{title: 'first'}, {title: 'second'}];
+  newsTableView.setData(data);
 }
 
 function getVideoData() {
