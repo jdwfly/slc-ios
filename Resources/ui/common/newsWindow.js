@@ -1,5 +1,6 @@
 var globals = require('lib/globals');
 var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
+var ScrollableGridView = require('ui/common/scrollableGridView').createScrollableGridView;
 var newsTableView = '',
     navBar = '',
     tableData = [];
@@ -170,8 +171,91 @@ function getTweetData() {
 }
 
 function getPhotoData() {
-  var data = [{title: 'first'}, {title: 'second'}];
-  newsTableView.setData(data);
+  if (Ti.Network.online){
+    var photos_xhr = new HTTPClientWithCache({
+      baseUrl: 'http://www.lancasterbaptist.org/slc/app/1/',
+      retryCount: 2,
+      cacheSeconds: 10,
+      onload: function(response) {
+        // Create the imageview data array
+        Ti.API.info("Response Data: "+ response.responseText);
+        Ti.API.info("Is this cached data?: " + response.cached);
+        var photos = JSON.parse(response.responseText);
+        var idata = [];
+        for (var c in photos.nodes[0].node.small_link) {
+          var v = Ti.UI.createImageView({
+            image: encodeURI(photos.nodes[0].node.small_link[c]),
+            height: 100,
+            width: 100
+          });
+          idata.push(v);
+        }
+        // create the scrollable grid view
+        var scrollGrid = new ScrollableGridView({
+          data: idata,
+          cellWidth: 100,
+          cellHeight: 100,
+          xSpacer: 1,
+          ySpacer: 1,
+          xGrid: 3
+        });
+        
+        var row = Ti.UI.createTableViewRow({
+          height: '100%',
+          width: '100%'
+        });
+        row.add(scrollGrid);
+        var tdata = [row];
+        
+        newsTableView.setData(tdata);
+      }
+    });
+    photos_xhr.post({url: 'photos'});
+  } else {
+    // Maybe this should fail silently with just a log message
+    var dialog = Ti.UI.createAlertDialog({
+      message: 'You must be online to refresh the photos page.',
+      ok: 'Okay',
+      title: 'Oh noes!'
+    }).show();
+  }
+  
+  /*
+  var P = function(densityPixels){
+    return densityPixels*Ti.Platform.displayCaps.dpi/160;
+  };
+  var iconNums =1;
+  var newIcon = function(color){
+    var v = Ti.UI.createView({
+        width:P(95),
+        height:P(95),
+        backgroundColor:(color)?color:"#d85a1a"
+    });
+    v.add(Ti.UI.createLabel({
+        text: iconNums++
+    }));
+    return v;
+  };
+  var dataR =[];
+  for(var i=0; i<24; i++){dataR.push(newIcon());}
+  
+  var scrollGrid = new ScrollableGridView({
+    data: dataR,
+    cellWidth: 100,
+    cellHeight: 100,
+    xSpacer: 1,
+    ySpacer: 1,
+    xGrid: 3
+  });
+  
+  var row = Ti.UI.createTableViewRow({
+    height: '100%',
+    width: '100%'
+  });
+  row.add(scrollGrid);
+  var tdata = [row];
+  
+  newsTableView.setData(tdata); */
 }
 
 function getVideoData() {
