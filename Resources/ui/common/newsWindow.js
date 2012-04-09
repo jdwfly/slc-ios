@@ -219,43 +219,6 @@ function getPhotoData() {
       title: 'Oh noes!'
     }).show();
   }
-  
-  /*
-  var P = function(densityPixels){
-    return densityPixels*Ti.Platform.displayCaps.dpi/160;
-  };
-  var iconNums =1;
-  var newIcon = function(color){
-    var v = Ti.UI.createView({
-        width:P(95),
-        height:P(95),
-        backgroundColor:(color)?color:"#d85a1a"
-    });
-    v.add(Ti.UI.createLabel({
-        text: iconNums++
-    }));
-    return v;
-  };
-  var dataR =[];
-  for(var i=0; i<24; i++){dataR.push(newIcon());}
-  
-  var scrollGrid = new ScrollableGridView({
-    data: dataR,
-    cellWidth: 100,
-    cellHeight: 100,
-    xSpacer: 1,
-    ySpacer: 1,
-    xGrid: 3
-  });
-  
-  var row = Ti.UI.createTableViewRow({
-    height: '100%',
-    width: '100%'
-  });
-  row.add(scrollGrid);
-  var tdata = [row];
-  
-  newsTableView.setData(tdata); */
 }
 
 function getVideoData() {
