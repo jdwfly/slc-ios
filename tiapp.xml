@@ -8,7 +8,7 @@
         <target device="blackberry">false</target>
     </deployment-targets>
     <sdk-version>1.8.2</sdk-version>
-    <id>org.lancasterbaptist.slc2</id>
+    <id>org.lancasterbaptist.slc</id>
     <name>SLC2</name>
     <version>1.0</version>
     <publisher>Lancaster Baptist Church</publisher>

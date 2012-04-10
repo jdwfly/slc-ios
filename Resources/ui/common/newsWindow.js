@@ -202,7 +202,8 @@ function getPhotoData() {
         
         var row = Ti.UI.createTableViewRow({
           height: '100%',
-          width: '100%'
+          width: '100%',
+          selectedBackgroundColor: '#eeeeee'
         });
         row.add(scrollGrid);
         var tdata = [row];
@@ -222,7 +223,17 @@ function getPhotoData() {
 }
 
 function getVideoData() {
+  var data = [];
   
+  var row = Ti.UI.createTableViewRow({
+    selectedBackgroundColor: '#eeeeee',
+    selectionStyle: 0,
+    title: 'Click to watch'
+  });
+  
+  data.push(row);
+  
+  newsTableView.setData(data);
 }
 
 exports.getNewsTweetData = function() {

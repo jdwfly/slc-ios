@@ -1,8 +1,8 @@
-#appname: SLC2
-#publisher: jwheaton
-#url: http://slconference.com
-#image: appicon.png
-#appid: org.lancasterbaptist.slc2
-#desc: undefined
-#type: ipad
-#guid: c71e36ac-b2b5-401d-ae7e-393f6a9f79da
+#appname:SLC2
+#publisher:Lancaster Baptist Church
+#url:http://slconference.com
+#image:appicon.png
+#appid:org.lancasterbaptist.slc
+#desc:not specified
+#type:ipad
+#guid:c71e36ac-b2b5-401d-ae7e-393f6a9f79da
