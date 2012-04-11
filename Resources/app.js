@@ -7,7 +7,7 @@ if (globals.osname === 'iphone' || globals.osname === 'android') {
   MainTabView = require('/ui/common/mainTabView').mainTabView;
 }
 else {
-  MainTabView = require('/ui/ipad/ipadMainWindow');
+  MainTabView = require('/ui/ipad/mainSplitView').mainSplitView;
 }
 new MainTabView().open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 
