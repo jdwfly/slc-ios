@@ -1,10 +1,9 @@
 exports.mainSplitView = function() {
   var win = Ti.UI.createWindow({
-    title: 'Home',
     backgroundColor: '#eeeeee',
     barColor: '#405e84'
   });
-  var data = [], scheduleRow, mapsRow, newsRow, speakerRow, liveRow;
+  var data = [], scheduleRow, mapsRow, newsRow, photosRow, speakerRow, liveRow;
   scheduleRow = Ti.UI.createTableViewRow({
     title: 'Schedule',
     leftImage: '/data/11-clock.png',
@@ -23,8 +22,7 @@ exports.mainSplitView = function() {
   data.push(mapsRow);
   newsRow = Ti.UI.createTableViewRow({
     title: 'News',
-    leftImage: '/data/56-feed.png',
-    hasChild: true
+    leftImage: '/data/56-feed.png'
     /**
      This is going to have to be different than the phone version
     onclick: 'newsWindow',
@@ -32,6 +30,11 @@ exports.mainSplitView = function() {
     */
   });
   data.push(newsRow);
+  photosRow = Ti.UI.createTableViewRow({
+    title: 'Photos',
+    leftImage: '/data/42-photos.png'
+  });
+  data.push(photosRow);
   speakerRow = Ti.UI.createTableViewRow({
     title: 'Speakers',
     leftImage: '/data/112-group.png',
@@ -42,8 +45,7 @@ exports.mainSplitView = function() {
   data.push(speakerRow);
   liveRow = Ti.UI.createTableViewRow({
     title: 'Live Stream',
-    leftImage: '/data/69-display.png',
-    hasChild: true,
+    leftImage: '/data/69-display.png'
     // Will need something different here as well
   });
   data.push(liveRow);
@@ -68,23 +70,29 @@ exports.mainSplitView = function() {
   // Window shown in wider, right "pane"
   var detailWin = Ti.UI.createWindow({
     backgroundColor:'#dfdfdf',
-    title: 'Detail View',
-    
+    barColor: '#3b587b',
+    title: 'Detail View'
   });
+  var detailNavWin = Ti.UI.iPhone.createNavigationGroup({
+    window: detailWin
+  });
+  /**
   detailWin.add(Ti.UI.iOS.createToolbar({
     top: 0,
     barColor: '#2e4561'
   }));
+  */
   // the split window
   var splitwin = Ti.UI.iPad.createSplitWindow({
-      detailView:detailWin,
+      detailView:detailNavWin,
       masterView:masterWin,
-      orientationModes:[ Titanium.UI.LANDSCAPE_LEFT,Titanium.UI.LANDSCAPE_RIGHT ],
+      orientationModes:[ Titanium.UI.LANDSCAPE_LEFT,Titanium.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT ],
       barColor: '#3b587b'
   });
   splitwin.addEventListener('visible', function(x) {
     if (x.view == 'detail') {
-      
+      x.button.title = "Master";
+      detailWin.leftNavButton = x.button;
     } else if (x.view == 'master') {
       detailWin.leftNavButton = null;
     }
