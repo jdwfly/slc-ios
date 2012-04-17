@@ -208,7 +208,9 @@ function getPhotoData() {
         row.add(scrollGrid);
         var tdata = [row];
         
-        newsTableView.setData(tdata);
+        if (newsTableView != undefined) {
+          newsTableView.setData(tdata);
+        }
       }
     });
     photos_xhr.post({url: 'photos'});
