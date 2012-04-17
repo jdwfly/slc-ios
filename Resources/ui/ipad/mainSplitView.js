@@ -1,3 +1,4 @@
+var detailWin;
 exports.mainSplitView = function() {
   var win = Ti.UI.createWindow({
     backgroundColor: '#eeeeee',
@@ -45,8 +46,9 @@ exports.mainSplitView = function() {
   data.push(speakerRow);
   liveRow = Ti.UI.createTableViewRow({
     title: 'Live Stream',
-    leftImage: '/data/69-display.png'
-    // Will need something different here as well
+    leftImage: '/data/69-display.png',
+    onclick: 'liveWindow',
+    requirejs: 'ui/iphon/liveWindow'
   });
   data.push(liveRow);
   var homeTableView = Ti.UI.createTableView({
@@ -57,8 +59,16 @@ exports.mainSplitView = function() {
   homeTableView.addEventListener('click', function(z) {
     if (z.rowData.requirejs) {
       var winClass = require(z.rowData.requirejs)[z.rowData.onclick];
-      var scheduleWindow = new winClass();
-      masterWin.open(scheduleWindow);
+      if (z.rowData.hasChild) {
+        var scheduleWindow = new winClass();
+        masterWin.open(scheduleWindow);
+      } else {
+        var myWindow = new winClass();
+        Ti.App.fireEvent('detailView.change', {
+          requirejs: z.rowData.requirejs,
+          classname: z.rowData.onclick
+        });
+      }
     }
   });
   win.add(homeTableView);
@@ -68,20 +78,14 @@ exports.mainSplitView = function() {
     window: win
   });
   // Window shown in wider, right "pane"
-  var detailWin = Ti.UI.createWindow({
+  detailWin = Ti.UI.createWindow({
     backgroundColor:'#dfdfdf',
-    barColor: '#3b587b',
-    title: 'Detail View'
+    barColor: '#3b587b'
   });
   var detailNavWin = Ti.UI.iPhone.createNavigationGroup({
     window: detailWin
   });
-  /**
-  detailWin.add(Ti.UI.iOS.createToolbar({
-    top: 0,
-    barColor: '#2e4561'
-  }));
-  */
+
   // the split window
   var splitwin = Ti.UI.iPad.createSplitWindow({
       detailView:detailNavWin,
@@ -91,7 +95,7 @@ exports.mainSplitView = function() {
   });
   splitwin.addEventListener('visible', function(x) {
     if (x.view == 'detail') {
-      x.button.title = "Master";
+      x.button.title = "Menu";
       detailWin.leftNavButton = x.button;
     } else if (x.view == 'master') {
       detailWin.leftNavButton = null;
@@ -101,3 +105,14 @@ exports.mainSplitView = function() {
   
   return splitwin;
 };
+
+Ti.App.addEventListener('detailView.change', function(args) {
+  var viewClass = require(args.requirejs)[args.classname];
+  var detailViewContents = new viewClass(args.args);
+  var detailView = Ti.UI.createView({
+    top: 0,
+    left: 0
+  });
+  detailView.add(detailViewContents);
+  detailWin.animate({view: detailView, transition: Ti.UI.iPhone.AnimationStyle.CURL_UP});
+});
