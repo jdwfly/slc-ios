@@ -33,7 +33,9 @@ exports.mainSplitView = function() {
   data.push(newsRow);
   photosRow = Ti.UI.createTableViewRow({
     title: 'Photos',
-    leftImage: '/data/42-photos.png'
+    leftImage: '/data/42-photos.png',
+    onclick: 'photosWindow',
+    requirejs: 'ui/ipad/photosWindow'
   });
   data.push(photosRow);
   speakerRow = Ti.UI.createTableViewRow({
@@ -63,7 +65,6 @@ exports.mainSplitView = function() {
         var scheduleWindow = new winClass();
         masterWin.open(scheduleWindow);
       } else {
-        var myWindow = new winClass();
         Ti.App.fireEvent('detailView.change', {
           requirejs: z.rowData.requirejs,
           classname: z.rowData.onclick
@@ -102,7 +103,6 @@ exports.mainSplitView = function() {
     }
   });
   
-  
   return splitwin;
 };
 
@@ -111,8 +111,14 @@ Ti.App.addEventListener('detailView.change', function(args) {
   var detailViewContents = new viewClass(args.args);
   var detailView = Ti.UI.createView({
     top: 0,
-    left: 0
+    left: 0,
+    height: '100%'
   });
   detailView.add(detailViewContents);
-  detailWin.animate({view: detailView, transition: Ti.UI.iPhone.AnimationStyle.CURL_UP});
+  detailWin.animate({view: detailView, transition: Ti.UI.iPhone.AnimationStyle.CURL_UP}, function() {
+    if (args.classname == 'photosWindow') {
+      Ti.App.fireEvent('photos.getPhotoData');
+      detailWin.setTitle('Photos');
+    }
+  });
 });
