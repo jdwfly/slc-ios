@@ -90,7 +90,7 @@ exports.dbGetSingleEvent = function(nid) {
 // returns result array of children sessions during parent workshop time
 exports.dbGetWorkshopEvents = function(nid) {
   var parentNode = _slcDB.execute('SELECT * FROM events WHERE nid='+nid);
-  var result = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND day='+parentNode.fieldByName('day')+' AND datefrom='+parentNode.fieldByName('datefrom')+' ORDER BY weight ASC');
+  var result = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND day="'+parentNode.fieldByName('day')+'" AND datefrom='+parentNode.fieldByName('datefrom')+' ORDER BY weight ASC');
   Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
   return result;
 };
