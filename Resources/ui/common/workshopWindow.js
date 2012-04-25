@@ -30,11 +30,70 @@ exports.workshopWindow = function(opts) {
     instance.rightNavButton = refresh;
   }
   
-  var tableData = [], workshopTableView, row;
+  var tableData = [], workshopTableView, row, title, titleLabel, notesImage,
+    textView, speaker, speakerLabel, category, categoryLabel, room;
   
   if (opts.nodes.rowCount != 0) {
     while (opts.nodes.isValidRow()) {
-      row = {title: opts.nodes.fieldByName('title')};
+      title = globals.html_decode(opts.nodes.fieldByName('title'));
+      speaker = opts.nodes.fieldByName('speaker');
+      room = opts.nodes.fieldByName('room');
+      category = globals.html_decode(opts.nodes.fieldByName('track'));
+      row = Ti.UI.createTableViewRow({
+        backgroundColor: '#eeeeee',
+        layout: 'absolute',
+        height: 90
+      });
+      
+      notesImage = Ti.UI.createImageView({
+        image: '/data/notes.png',
+        left: 15,
+        top: 5,
+        height: 74,
+        width: 63
+      });
+      row.add(notesImage);
+      
+      textView = Ti.UI.createView({
+        top: 5,
+        left: 85,
+        width: '70%',
+        height: 'auto',
+        layout: 'vertical'
+      });
+      
+      titleLabel = Ti.UI.createLabel({
+        text: title,
+        color: '#273a51',
+        font: {fontWeight: 'bold'},
+        left: 0
+      });
+      textView.add(titleLabel);
+      
+      speakerLabel = Ti.UI.createLabel({
+        text: speaker + " | " + room,
+        color: '#4d73a0',
+        font: {fontSize: 12},
+        left: 0
+      });
+      textView.add(speakerLabel);
+      
+      categoryLabel = Ti.UI.createLabel({
+        text: category,
+        color: '#515151',
+        font: {fontSize: 12, fontStyle: 'italic'},
+        left: 0
+      });
+      textView.add(categoryLabel);
+      
+      row.add(textView);
+      row.add(Ti.UI.createView({
+        bottom: 0,
+        width: "90%",
+        height: 1,
+        backgroundColor: '#e0e0e0'
+      }));
+      
       tableData.push(row);
       opts.nodes.next();
     }
