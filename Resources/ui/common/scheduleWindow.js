@@ -109,7 +109,7 @@ function getEventData() {
       height: 1,
       backgroundColor: '#e0e0e0',
       width: (row.hasChild) ? "90%" : "85%"
-    }))
+    }));
     row.add(timeLabel);
     row.add(roomLabel);
     row.add(titleLabel);
