@@ -199,6 +199,7 @@ To completely clear the cache of every single entry, you can do this:
       db = Titanium.Database.open('http_client_cache');
       if (seconds == null) seconds = this.options.cacheSeconds;
       row = db.execute("SELECT RESPONSE, UPDATED_AT FROM REQUESTS WHERE URL_HASH=? AND UPDATED_AT > DATETIME('now','-" + seconds + " seconds')", this.url_hash);
+      if (row.rowCount === 0) return;
       responseText = row.field(0);
       cachedAt = row.field(1);
       row.close();

@@ -169,6 +169,7 @@ class HTTPClientWithCache
     db = Titanium.Database.open('http_client_cache')
     seconds ?= @options.cacheSeconds
     row = db.execute("SELECT RESPONSE, UPDATED_AT FROM REQUESTS WHERE URL_HASH=? AND UPDATED_AT > DATETIME('now','-#{seconds} seconds')", @url_hash)
+    return if row.rowCount == 0
     responseText = row.field(0)
     cachedAt     = row.field(1)
     row.close()

@@ -20,21 +20,23 @@ exports.newsWindow = function() {
       Ti.App.fireEvent('news.updateTableViewData');
     });
     instance.rightNavButton = refresh;
+    
+    // create button bar toolbar
+    // will need to make this compat for android
+    navBar = Ti.UI.iOS.createTabbedBar({
+      labels: ['News', 'Photos', 'Videos'],
+      index: 0,
+      backgroundColor: '#3b587b',
+      style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
+      height: 30
+    });
+    navBar.addEventListener('click', function(x) {
+      Ti.App.fireEvent('news.updateTableViewData');
+    });
+    instance.titleControl = navBar;
   }
   
-  // create button bar toolbar
-  // will need to make this compat for android
-  navBar = Ti.UI.iOS.createTabbedBar({
-    labels: ['News', 'Photos', 'Videos'],
-    index: 0,
-    backgroundColor: '#3b587b',
-    style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
-    height: 30
-  })
-  navBar.addEventListener('click', function(x) {
-    Ti.App.fireEvent('news.updateTableViewData');
-  });
-  instance.titleControl = navBar;
+  
   
   newsTableView = Ti.UI.createTableView({
     data: tableData,
