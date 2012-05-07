@@ -227,17 +227,57 @@ function getPhotoData() {
 }
 
 function getVideoData() {
-  var data = [];
-  
-  var row = Ti.UI.createTableViewRow({
-    selectedBackgroundColor: '#eeeeee',
-    selectionStyle: 0,
-    title: 'Click to watch'
-  });
-  
-  data.push(row);
-  
-  newsTableView.setData(data);
+  if (Ti.Network.online){
+    var videos_xhr = new HTTPClientWithCache({
+      baseUrl: 'http://www.lancasterbaptist.org/slc/app/1/',
+      retryCount: 2,
+      cacheSeconds: 10,
+      onload: function(response) {
+        Ti.API.info("Response Data: "+ response.responseText);
+        Ti.API.info("Is this cached data?: " + response.cached);
+        var videos = JSON.parse(response.responseText);
+        var tdata = [], row, thumb, title;
+        for (var c in videos.nodes) {
+          row = Ti.UI.createTableViewRow({
+            backgroundColor: '#eeeeee',
+            layout: 'vertical'
+          });
+          thumb = Ti.UI.createImageView({
+            image: videos.nodes[c].node.image,
+            width: 280,
+            height: 135
+          });
+          row.add(thumb);
+          title = Ti.UI.createLabel({
+            text: videos.nodes[c].node.title
+          });
+          row.add(title);
+          
+          row.vimeo = videos.nodes[c].node.vimeo;
+          
+          row.addEventListener('click', function(s) {
+            if (s.rowData.vimeo != undefined) {
+              Ti.Platform.openURL('http://vimeo.com/' + s.rowData.vimeo);
+            }
+          });
+          
+          tdata.push(row);
+        }        
+        
+        if (newsTableView != undefined) {
+          newsTableView.setData(tdata);
+        }
+      }
+    });
+    videos_xhr.post({url: 'videos'});
+  } else {
+    // Maybe this should fail silently with just a log message
+    var dialog = Ti.UI.createAlertDialog({
+      message: 'You must be online to refresh the videos page.',
+      ok: 'Okay',
+      title: 'Oh noes!'
+    }).show();
+  }
 }
 
 exports.getNewsTweetData = function() {
