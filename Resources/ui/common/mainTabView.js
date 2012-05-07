@@ -4,7 +4,7 @@ exports.mainTabView = function() {
   
   var scheduleWindow = require('ui/common/scheduleWindow').scheduleWindow;
   var scheduleTab = Ti.UI.createTab({  
-    icon: 'data/83-calendar.png',
+    icon: 'data/11-clock.png',
     title: 'Schedule',
     window: new scheduleWindow()
   });
@@ -18,7 +18,7 @@ exports.mainTabView = function() {
   
   var newsWindow = require('ui/common/newsWindow').newsWindow;
   var newsTab = Ti.UI.createTab({
-    icon: 'data/23-bird.png',
+    icon: 'data/56-feed.png',
     title: 'News',
     window: new newsWindow()
   });
