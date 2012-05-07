@@ -5,7 +5,7 @@ var _eventsUrl = "/events";
 var _speakersUrl = "/speakers";
 var _livestreamUrl = "/livestream";
 var _slcDB = Ti.Database.open('slcdb');
-_slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, track TEXT, weight TEXT)');
+_slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, track TEXT, weight TEXT, download TEXT, notes TEXT)');
 var _speakerData = "";
 
 exports.osname = _osname;
@@ -43,13 +43,13 @@ exports.speakerData = function() {
 
 exports.slcdbSaveEvents = function(events) {
   _slcDB.execute('DROP TABLE IF EXISTS events');
-  _slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, track TEXT, weight TEXT)');
+  _slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, track TEXT, weight TEXT, download TEXT, notes TEXT)');
   // Remove all data first
   _slcDB.execute('DELETE FROM events');
   
   var parseEvents = JSON.parse(events), i = 0;
   for (i in parseEvents.nodes) {
-    _slcDB.execute('INSERT INTO events (nid, title, eventtype, day, datefrom, dateto, speaker, room, track, weight) VALUES(?,?,?,?,?,?,?,?,?,?)', 
+    _slcDB.execute('INSERT INTO events (nid, title, eventtype, day, datefrom, dateto, speaker, room, track, weight, download, notes) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', 
       parseEvents.nodes[i].node.nid,
       parseEvents.nodes[i].node.title,
       parseEvents.nodes[i].node.type,
@@ -59,7 +59,9 @@ exports.slcdbSaveEvents = function(events) {
       parseEvents.nodes[i].node.speaker,
       parseEvents.nodes[i].node.room,
       parseEvents.nodes[i].node.track,
-      parseEvents.nodes[i].node.weight
+      parseEvents.nodes[i].node.weight,
+      parseEvents.nodes[i].node.download,
+      parseEvents.nodes[i].node.notes
     );
   }
   Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);

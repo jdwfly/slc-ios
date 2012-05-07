@@ -44,6 +44,7 @@ exports.workshopWindow = function(opts) {
         layout: 'absolute',
         height: 90
       });
+      row.notes = opts.nodes.fieldByName('notes');
       
       notesImage = Ti.UI.createImageView({
         image: '/data/notes.png',
@@ -51,6 +52,17 @@ exports.workshopWindow = function(opts) {
         top: 5,
         height: 74,
         width: 63
+      });
+      notesImage.addEventListener('click', function(s) {
+        if (s.rowData.notes == "None") {
+          var dialog = Ti.UI.createAlertDialog({
+            message: "We're sorry, but the notes for this session are not available.",
+            ok: 'Okay',
+            title: 'Oh noes!'
+          }).show();
+        } else {
+          Ti.Platform.openURL(s.rowData.notes);
+        }
       });
       row.add(notesImage);
       

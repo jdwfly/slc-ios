@@ -17,7 +17,7 @@ exports.scheduleWindow = function() {
       var menuItem = menu.add({title:"Refresh"});
       menuItem.addEventListener("click", function(e) {
         Ti.App.fireEvent('events.update');
-      });
+       });
     };
   }
   
@@ -124,7 +124,8 @@ function getEventData() {
       if (currentSection != '') {
         data.push(currentSection);
       }
-      var formattedDay = globals.date('l, F j',globals.strtotime(currentDay));
+      var timestamp = globals.strtotime(currentDay) + 25212;
+      var formattedDay = globals.date('l, F j', timestamp);
       var headerView = Ti.UI.createView({
         backgroundColor: '#eeeeee',
         height: 30,

@@ -42,7 +42,9 @@ function updateSpeakerData() {
     curhead = firstLetter;
   }
   tableView.setData(table, {animated: false});
-  tableView.setIndex(index);
+  if (globals.osname === 'iphone') {
+    tableView.setIndex(index);
+  }
 }
 
 exports.speakersWindow = function() {
