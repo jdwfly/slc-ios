@@ -1,6 +1,8 @@
 // GLOBAL VARS
 var globals = require('lib/globals');
 var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
+var Flurry = require('ti.flurry');
+Flurry.initialize("4FIT53J4GC77BQB84HX2");
 Ti.App.fireEvent('events.update');
 var MainTabView;
 if (globals.osname === 'iphone' || globals.osname === 'android') {
@@ -138,6 +140,7 @@ Ti.App.addEventListener('live.click', function() {
 Ti.App.addEventListener('photos.click', function(opts) {
   var winClass = require('ui/common/photosDetailWindow').photosDetailWindow;
   var photoDetailWindow = new winClass(opts);
+  photoDetailWindow.hideTabBar();
   Ti.API._activeTab.open(photoDetailWindow, {animated: true});
   if (typeof opts.callback === 'function') {
     callback();
