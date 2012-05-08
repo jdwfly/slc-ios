@@ -95,7 +95,7 @@ function getTweetData() {
 
           // Create a vertical layout view to hold all the info labels and images for each tweet
           var post_view = Ti.UI.createView({
-            height:'auto',
+            height: Ti.UI.SIZE,
             layout:'vertical',
             left:5,
             top:5,
@@ -188,7 +188,11 @@ function getPhotoData() {
           var v = Ti.UI.createImageView({
             image: encodeURI(photos.nodes[0].node.small_link[c]),
             height: 100,
-            width: 100
+            width: 100,
+            clickImage: encodeURI(photos.nodes[0].node.pictures[c])
+          });
+          v.addEventListener('click', function(e) {
+            Ti.App.fireEvent('photos.click', {image: this.clickImage});
           });
           idata.push(v);
         }
@@ -245,11 +249,14 @@ function getVideoData() {
           thumb = Ti.UI.createImageView({
             image: videos.nodes[c].node.image,
             width: 280,
-            height: 135
+            height: 135,
+            top: 10
           });
           row.add(thumb);
           title = Ti.UI.createLabel({
-            text: videos.nodes[c].node.title
+            text: videos.nodes[c].node.title,
+            width: '280',
+            height: 'auto'
           });
           row.add(title);
           

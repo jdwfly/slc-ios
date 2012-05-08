@@ -134,3 +134,12 @@ Ti.App.addEventListener('live.click', function() {
     }).show();
   }
 });
+
+Ti.App.addEventListener('photos.click', function(opts) {
+  var winClass = require('ui/common/photosDetailWindow').photosDetailWindow;
+  var photoDetailWindow = new winClass(opts);
+  Ti.API._activeTab.open(photoDetailWindow, {animated: true});
+  if (typeof opts.callback === 'function') {
+    callback();
+  }
+});
