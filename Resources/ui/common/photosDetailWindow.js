@@ -2,7 +2,7 @@ var globals = require('lib/globals');
 
 exports.photosDetailWindow = function(opts) {
   var instance = Ti.UI.createWindow({
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#000000',
     barColor: '#3b587b',
     fullscreen: true
   });
@@ -25,12 +25,6 @@ exports.photosDetailWindow = function(opts) {
   scroll.add(image)
   
   instance.add(scroll);
-  
-  instance.addEventListener('open', function(e) {
-    this.setNavBarHidden(true);
-  });
-  
-  
   
   return instance;
 };
