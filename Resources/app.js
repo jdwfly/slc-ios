@@ -3,7 +3,6 @@ var globals = require('lib/globals');
 var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
 var Flurry = require('ti.flurry');
 Flurry.initialize("4FIT53J4GC77BQB84HX2");
-Ti.App.fireEvent('events.update');
 var MainTabView;
 if (globals.osname === 'iphone' || globals.osname === 'android') {
   MainTabView = require('/ui/common/mainTabView').mainTabView;
@@ -39,6 +38,11 @@ Ti.App.addEventListener('events.update', function(_callback){
     }).show();
   }
 });
+// If there are no sessions, populate the database
+var result = globals.dbGetEvents();
+if (result.getRowCount() == 0) {
+  Ti.App.fireEvent('events.update');
+}
 
 Ti.App.addEventListener('speakers.update', function(_callback){
   if (Ti.Network.online) {
