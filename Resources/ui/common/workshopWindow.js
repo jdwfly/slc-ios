@@ -1,7 +1,7 @@
 var globals = require('lib/globals');
 exports.workshopWindow = function(opts) {
   var instance = Ti.UI.createWindow({
-    title: opts.workshop.fieldByName('title'),
+    title: opts.workshop[0].title,
     backgroundColor: '#eeeeee',
     barColor: '#3b587b'
   });
@@ -33,18 +33,18 @@ exports.workshopWindow = function(opts) {
   var tableData = [], workshopTableView, row, title, titleLabel, notesImage,
     textView, speaker, speakerLabel, category, categoryLabel, room;
   
-  if (opts.nodes.rowCount != 0) {
-    while (opts.nodes.isValidRow()) {
-      title = globals.html_decode(opts.nodes.fieldByName('title'));
-      speaker = opts.nodes.fieldByName('speaker');
-      room = opts.nodes.fieldByName('room');
-      category = globals.html_decode(opts.nodes.fieldByName('track'));
+  if (opts.nodes.length != 0) {
+    for (var i = 0, node; node = opts.nodes[i]; i++) {
+      title = globals.html_decode(node.title);
+      speaker = node.speaker;
+      room = node.room;
+      category = globals.html_decode(node.track);
       row = Ti.UI.createTableViewRow({
         backgroundColor: '#eeeeee',
         layout: 'absolute',
         height: 90
       });
-      row.notes = opts.nodes.fieldByName('notes');
+      row.notes = node.notes;
       
       notesImage = Ti.UI.createImageView({
         image: '/data/notes.png',
@@ -82,8 +82,14 @@ exports.workshopWindow = function(opts) {
       });
       textView.add(titleLabel);
       
+      if (room == null) {
+        room = '';
+      } else {
+        room = " | " + room;
+      }
+      
       speakerLabel = Ti.UI.createLabel({
-        text: speaker + " | " + room,
+        text: speaker + room,
         color: '#4d73a0',
         font: {fontSize: 12},
         left: 0
@@ -107,7 +113,6 @@ exports.workshopWindow = function(opts) {
       }));
       
       tableData.push(row);
-      opts.nodes.next();
     }
   } else {
     tableData = [{title: 'No results'}];
