@@ -6,6 +6,7 @@ var _speakersUrl = "/speakers";
 var _livestreamUrl = "/livestream";
 var _slcDB = Ti.Database.open('slcdb');
 _slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, track TEXT, weight TEXT, download TEXT, notes TEXT)');
+_slcDB.close();
 var _speakerData = "";
 
 exports.osname = _osname;
@@ -42,6 +43,7 @@ exports.speakerData = function() {
 }
 
 exports.slcdbSaveEvents = function(events) {
+  _slcDB = Ti.Database.open('slcdb');
   _slcDB.execute('DROP TABLE IF EXISTS events');
   _slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, track TEXT, weight TEXT, download TEXT, notes TEXT)');
   // Remove all data first
@@ -66,35 +68,116 @@ exports.slcdbSaveEvents = function(events) {
   }
   Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);
   Ti.App.fireEvent('schedule.updateTableView');
+  _slcDB.close();
 }
 
 exports.slcdbGetEvents = function(dateString) {
-  var result = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" AND day="'+dateString+'" ORDER BY datefrom ASC');
-  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
-  return result;
+  var results = [];
+  _slcDB = Ti.Database.open('slcdb');
+  var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" AND day="'+dateString+'" ORDER BY datefrom ASC');
+  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  while (resultSet.isValidRow()) {
+    results.push({
+      nid: resultSet.fieldByName('nid'),
+      title: resultSet.fieldByName('title'),
+      eventtype: resultSet.fieldByName('eventtype'),
+      day: resultSet.fieldByName('day'),
+      datefrom: resultSet.fieldByName('datefrom'),
+      dateto: resultSet.fieldByName('dateto'),
+      speaker: resultSet.fieldByName('speaker'),
+      room: resultSet.fieldByName('room'),
+      track: resultSet.fieldByName('track'),
+      weight: resultSet.fieldByName('weight'),
+      download: resultSet.fieldByName('download'),
+      notes: resultSet.fieldByName('notes')
+    });
+    resultSet.next();
+  }
+  _slcDB.close();
+  return results;
 }
 
 exports.dbGetEvents = function() {
-  var result = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" ORDER BY day ASC, datefrom ASC');
-  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
-  return result;
+  var results = [];
+  _slcDB = Ti.Database.open('slcdb');
+  var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" ORDER BY day ASC, datefrom ASC');
+  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  while (resultSet.isValidRow()) {
+    results.push({
+      nid: resultSet.fieldByName('nid'),
+      title: resultSet.fieldByName('title'),
+      eventtype: resultSet.fieldByName('eventtype'),
+      day: resultSet.fieldByName('day'),
+      datefrom: resultSet.fieldByName('datefrom'),
+      dateto: resultSet.fieldByName('dateto'),
+      speaker: resultSet.fieldByName('speaker'),
+      room: resultSet.fieldByName('room'),
+      track: resultSet.fieldByName('track'),
+      weight: resultSet.fieldByName('weight'),
+      download: resultSet.fieldByName('download'),
+      notes: resultSet.fieldByName('notes')
+    });
+    resultSet.next();
+  }
+  _slcDB.close();
+  return results;
 }
 
 // nid = Node ID of event requesting
 // returns node data of certain node ID
 exports.dbGetSingleEvent = function(nid) {
-  var result = _slcDB.execute('SELECT * FROM events WHERE nid='+nid);
-  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
-  return result;
+  var results = [];
+  _slcDB = Ti.Database.open('slcdb');
+  var resultSet = _slcDB.execute('SELECT * FROM events WHERE nid='+nid);
+  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  while (resultSet.isValidRow()) {
+    results.push({
+      nid: resultSet.fieldByName('nid'),
+      title: resultSet.fieldByName('title'),
+      eventtype: resultSet.fieldByName('eventtype'),
+      day: resultSet.fieldByName('day'),
+      datefrom: resultSet.fieldByName('datefrom'),
+      dateto: resultSet.fieldByName('dateto'),
+      speaker: resultSet.fieldByName('speaker'),
+      room: resultSet.fieldByName('room'),
+      track: resultSet.fieldByName('track'),
+      weight: resultSet.fieldByName('weight'),
+      download: resultSet.fieldByName('download'),
+      notes: resultSet.fieldByName('notes')
+    });
+    resultSet.next();
+  }
+  _slcDB.close();
+  return results;
 }
 
 // nid = Node of Parent Workshop
 // returns result array of children sessions during parent workshop time
 exports.dbGetWorkshopEvents = function(nid) {
+  var results = [];
+  _slcDB = Ti.Database.open('slcdb');
   var parentNode = _slcDB.execute('SELECT * FROM events WHERE nid='+nid);
-  var result = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND day="'+parentNode.fieldByName('day')+'" AND datefrom='+parentNode.fieldByName('datefrom')+' ORDER BY weight ASC');
-  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
-  return result;
+  var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND day="'+parentNode.fieldByName('day')+'" AND datefrom='+parentNode.fieldByName('datefrom')+' ORDER BY weight ASC');
+  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  while (resultSet.isValidRow()) {
+    results.push({
+      nid: resultSet.fieldByName('nid'),
+      title: resultSet.fieldByName('title'),
+      eventtype: resultSet.fieldByName('eventtype'),
+      day: resultSet.fieldByName('day'),
+      datefrom: resultSet.fieldByName('datefrom'),
+      dateto: resultSet.fieldByName('dateto'),
+      speaker: resultSet.fieldByName('speaker'),
+      room: resultSet.fieldByName('room'),
+      track: resultSet.fieldByName('track'),
+      weight: resultSet.fieldByName('weight'),
+      download: resultSet.fieldByName('download'),
+      notes: resultSet.fieldByName('notes')
+    });
+    resultSet.next();
+  }
+  _slcDB.close();
+  return results;
 };
 
 /**
@@ -104,9 +187,29 @@ exports.dbGetWorkshopEvents = function(nid) {
  * Returns a result set of session events only.
  */
 exports.slcdbGetSessions = function(dateFrom, day) {
-  var result = _slcDB.execute('SELECT DISTINCT * FROM events WHERE eventtype="Session" AND datefrom="'+dateFrom+'" AND day="'+day+'" ORDER BY weight ASC');
-  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
-  return result;
+  var results = [];
+  _slcDB = Ti.Database.open('slcdb');
+  var resultSet = _slcDB.execute('SELECT DISTINCT * FROM events WHERE eventtype="Session" AND datefrom="'+dateFrom+'" AND day="'+day+'" ORDER BY weight ASC');
+  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  while (resultSet.isValidRow()) {
+    results.push({
+      nid: resultSet.fieldByName('nid'),
+      title: resultSet.fieldByName('title'),
+      eventtype: resultSet.fieldByName('eventtype'),
+      day: resultSet.fieldByName('day'),
+      datefrom: resultSet.fieldByName('datefrom'),
+      dateto: resultSet.fieldByName('dateto'),
+      speaker: resultSet.fieldByName('speaker'),
+      room: resultSet.fieldByName('room'),
+      track: resultSet.fieldByName('track'),
+      weight: resultSet.fieldByName('weight'),
+      download: resultSet.fieldByName('download'),
+      notes: resultSet.fieldByName('notes')
+    });
+    resultSet.next();
+  }
+  _slcDB.close();
+  return results;
 }
 
 /**
@@ -114,9 +217,29 @@ exports.slcdbGetSessions = function(dateFrom, day) {
  * snid = Speaker Node ID
  */
 exports.slcdbGetSessionsSpeaker = function(snid) {
-  var result = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND speaker="'+snid+'"');
-  Ti.API.info('ROWS FETCHED = ' + result.getRowCount());
-  return result;
+  var results = [];
+  _slcDB = Ti.Database.open('slcdb');
+  var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND speaker="'+snid+'"');
+  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  while (resultSet.isValidRow()) {
+    results.push({
+      nid: resultSet.fieldByName('nid'),
+      title: resultSet.fieldByName('title'),
+      eventtype: resultSet.fieldByName('eventtype'),
+      day: resultSet.fieldByName('day'),
+      datefrom: resultSet.fieldByName('datefrom'),
+      dateto: resultSet.fieldByName('dateto'),
+      speaker: resultSet.fieldByName('speaker'),
+      room: resultSet.fieldByName('room'),
+      track: resultSet.fieldByName('track'),
+      weight: resultSet.fieldByName('weight'),
+      download: resultSet.fieldByName('download'),
+      notes: resultSet.fieldByName('notes')
+    });
+    resultSet.next();
+  }
+  _slcDB.close();
+  return results;
 }
 
 // Helper function that converts seconds into a readable time string

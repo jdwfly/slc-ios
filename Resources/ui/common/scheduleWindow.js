@@ -27,7 +27,7 @@ exports.scheduleWindow = function() {
       systemButton:Ti.UI.iPhone.SystemButton.REFRESH
     });
     refresh.addEventListener('click', function(e) {
-      Ti.App.fireEvent('events.update');
+      Ti.App.fireEvent('events.update', {prune: true});
     });
     instance.rightNavButton = refresh;
   }
@@ -56,24 +56,25 @@ Ti.App.addEventListener('schedule.updateTableView', function(x) {
 // Will return an array for use in a TableView
 function getEventData() {
   var events = globals.dbGetEvents();
+  var x;
   var data = [];
   var header = '';
   var currentDay = '';
   var currentSection = '';
   var row = '';
   var time, room, title, topView, bottomView, timeLabel, roomLabel, titleLabel;
-  while (events.isValidRow()) {
-    currentDay = events.fieldByName('day');
-    time = globals.secondsToTime(events.fieldByName('datefrom')) + "-" + 
-           globals.secondsToTime(events.fieldByName('dateto'));
-    room = events.fieldByName('room');
-    title = globals.html_decode(events.fieldByName('title'));
+  for (x in events) {
+    currentDay = events[x].day;
+    time = globals.secondsToTime(events[x].datefrom) + "-" + 
+           globals.secondsToTime(events[x].dateto);
+    room = events[x].room;
+    title = globals.html_decode(events[x].title);
     row = Ti.UI.createTableViewRow({
       height: 50,
       backgroundColor: '#eeeeee',
       layout: 'absolute'
     });
-    if (events.fieldByName('eventtype') == 'Workshop') {
+    if (events[x].eventtype == 'Workshop') {
       row.hasChild = true;
     }
     timeLabel = Ti.UI.createLabel({
@@ -116,7 +117,7 @@ function getEventData() {
     if (title.length > 30) {
       row.setHeight(70);
     }
-    row.nid = events.fieldByName('nid');
+    row.nid = events[x].nid;
     
     if (header == currentDay) {
       currentSection.add(row);
@@ -149,7 +150,6 @@ function getEventData() {
       currentSection.add(row);
     }
     header = currentDay;
-    events.next();
   }
   // Push the last section into the data array
   data.push(currentSection);

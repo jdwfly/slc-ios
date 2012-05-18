@@ -15,7 +15,7 @@ else {
 new MainTabView().open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 
 // Global Event Listeners
-Ti.App.addEventListener('events.update', function(_callback){
+Ti.App.addEventListener('events.update', function(args){
   if (Ti.Network.online) {
     var events_xhr = new HTTPClientWithCache({
       baseUrl: globals.baseUrl,
@@ -25,11 +25,14 @@ Ti.App.addEventListener('events.update', function(_callback){
         Ti.API.info("Response Data: "+ response.responseText);
         Ti.API.info("Is this cached data?: " + response.cached);
         globals.slcdbSaveEvents(response.responseText);
-        if (typeof _callback === 'function') {
-          _callback;
+        if (typeof args.callback === 'function') {
+          args.callback;
         }
       }
     });
+    if (args.prune) {
+      events_xhr.prune_cache(0);
+    }
     events_xhr.post({url: globals.eventsUrl});
   } else {
     // Maybe this should fail silently with just a log message
@@ -42,8 +45,9 @@ Ti.App.addEventListener('events.update', function(_callback){
 });
 // If there are no sessions, populate the database
 var result = globals.dbGetEvents();
-if (result.getRowCount() == 0) {
-  Ti.App.fireEvent('events.update');
+Ti.API.info(typeof result);
+if (result.length == 0) {
+  Ti.App.fireEvent('events.update', {prune: true});
 }
 
 Ti.App.addEventListener('speakers.update', function(args){
