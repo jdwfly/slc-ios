@@ -1,8 +1,10 @@
 // GLOBAL VARS
 var globals = require('lib/globals');
 var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
-var Flurry = require('ti.flurry');
-Flurry.initialize("4FIT53J4GC77BQB84HX2");
+if (globals.osname === 'iphone') {
+  var Flurry = require('ti.flurry');
+  Flurry.initialize("4FIT53J4GC77BQB84HX2");
+}
 var MainTabView;
 if (globals.osname === 'iphone' || globals.osname === 'android') {
   MainTabView = require('/ui/common/mainTabView').mainTabView;
