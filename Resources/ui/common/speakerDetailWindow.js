@@ -103,8 +103,9 @@ exports.speakerDetailWindow = function(opts) {
       });
       var dayofweek = globals.DayofWeek(sessions.fieldByName('day'));
       var sessionTime = globals.secondsToTime(sessions.fieldByName('datefrom'));
+      var sessionRoom = (sessions.fieldByName('room') != null) ? " | " + sessions.fieldByName('room') : '';
       var sessionExtra = Ti.UI.createLabel({
-        text: dayofweek + " | " + sessionTime + " | " + sessions.fieldByName('room'),
+        text: dayofweek + " | " + sessionTime + sessionRoom,
         width: "auto",
         height: "auto",
         font: {fontSize: 12},
