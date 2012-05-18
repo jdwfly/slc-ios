@@ -73,7 +73,7 @@ exports.speakersWindow = function() {
       systemButton:Ti.UI.iPhone.SystemButton.REFRESH
     });
     refresh.addEventListener('click', function(e) {
-      Ti.App.fireEvent('speakers.update', updateSpeakerData);
+      Ti.App.fireEvent('speakers.update', {callback: updateSpeakerData, prune: true});
     });
     instance.rightNavButton = refresh;
   }

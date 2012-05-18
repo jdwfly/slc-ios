@@ -46,23 +46,25 @@ if (result.getRowCount() == 0) {
   Ti.App.fireEvent('events.update');
 }
 
-Ti.App.addEventListener('speakers.update', function(_callback){
+Ti.App.addEventListener('speakers.update', function(args){
   if (Ti.Network.online) {
     var speakers_xhr = new HTTPClientWithCache({
       baseUrl: globals.baseUrl,
       retryCount: 2,
-      cacheSeconds: 3600,
+      cacheSeconds: 300,
       onload: function(response) {
         Ti.API.info("Response Data: "+ response.responseText);
         Ti.API.info("Is this cached data?: " + response.cached);
         globals.setSpeakerData(response.responseText);
         Ti.App.fireEvent('speakers.updateTableView');
-        if (typeof _callback === 'function') {
-          _callback;
+        if (typeof args.callback === 'function') {
+          args.callback;
         }
       }
     });
-    //speakers_xhr.prune(0);
+    if (args.prune) {
+      speakers_xhr.prune_cache(0);
+    }
     speakers_xhr.post({url: globals.speakersUrl});
   } else {
     // Maybe this should fail silently with just a log message
