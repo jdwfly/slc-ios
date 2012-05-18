@@ -1,20 +1,30 @@
-// placeholder db.js
+var _db_version = 1;
+var _db_name = 'slcdb';
+
+// Initializes the Database
 exports.init = function() {
-  // Determine if this is the first run
-  // If so, then try to pull JSON data from site 
-  // If not online then use local JSON data
+  var db = Ti.Database.open(_db_name);
   
-  // If it is not the first run then try to get new json data based upon lastUpdate property
+  // Check Database Version
+  if (Ti.App.Properties.getInt(_db_name) != _db_version) {
+    // Delete DB and create new
+    // TODO
+    
+    Ti.App.Properties.setInt(_db_name, _db_version);
+  }
   
+  // Database is probably installed but these won't hurt
+  // Create events table
+  db.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, ' +
+    'eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, ' +
+    'track TEXT, weight TEXT, download TEXT, notes TEXT)');
+  // Create speakers table
+  db.execute('CREATE TABLE IF NOT EXISTS speakers (nid INTEGER, title TEXT, ' +
+    'prefix TEXT, fname TEXT, lname TEXT, smallimage TEXT, speakerimage TEXT, ' +
+    'largeimage TEXT, shortbio TEXT, location TEXT, guest TEXT, bio TEXT, ministry TEXT)');
+  // Create posts table
+  db.execute();
   
-  // Create the taffydb for the app to use
-  
-  Ti.API.info('db.js: Initializing database')
-  
-  // This will return the taffy db so it can be assigned to a global variable.
-  return Ti.taffy([
-    {"id": 1, "name": "First test"},
-    {"id": 2, "name": "Second test"},
-    {"id": 3, "name": "Third test"}
-  ]);
+  db.close();
 }
+
