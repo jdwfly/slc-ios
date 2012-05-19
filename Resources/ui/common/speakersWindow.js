@@ -68,7 +68,7 @@ exports.speakersWindow = function() {
   }
   
   // iPhone Specific Code
-  if (globals.osname === 'iphone') {
+  if (globals.osname === 'iphone' || globals.osname === 'ipad') {
     var refresh = Ti.UI.createButton({
       systemButton:Ti.UI.iPhone.SystemButton.REFRESH
     });
