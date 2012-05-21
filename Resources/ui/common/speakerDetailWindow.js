@@ -74,8 +74,8 @@ exports.speakerDetailWindow = function(opts) {
   
   // Now add the sessions if the speaker has any
   var sessions = globals.slcdbGetSessionsSpeaker(opts.title);
-  Ti.API.info("Total sessions for "+opts.title+": "+sessions.rowCount);
-  if (sessions.rowCount > 0) {
+  Ti.API.info("Total sessions for "+opts.title+": "+sessions.length);
+  if (sessions.length > 0) {
     var sessionHeader = Ti.UI.createTableViewRow({selectionStyle: "none"});
     var sessionHeaderTitle = Ti.UI.createLabel({
       text: "Workshop Sessions",
@@ -86,14 +86,14 @@ exports.speakerDetailWindow = function(opts) {
     });
     sessionHeader.add(sessionHeaderTitle);
     sdata.push(sessionHeader);
-    while (sessions.isValidRow()) {
+    for  (var i = 0, node; node = sessions[i]; i++) {
       var sessionRow = Ti.UI.createTableViewRow({
         height: "auto",
         layout: "vertical",
         selectionStyle: "none"
       });
       var sessionTitle = Ti.UI.createLabel({
-        text: globals.html_decode(sessions.fieldByName('title')),
+        text: globals.html_decode(node.title),
         top: 0,
         left: 20,
         font: {fontSize:14},
@@ -101,9 +101,9 @@ exports.speakerDetailWindow = function(opts) {
         height: "auto",
         color: "#b0b0b0"
       });
-      var dayofweek = globals.DayofWeek(sessions.fieldByName('day'));
-      var sessionTime = globals.secondsToTime(sessions.fieldByName('datefrom'));
-      var sessionRoom = (sessions.fieldByName('room') != null) ? " | " + sessions.fieldByName('room') : '';
+      var dayofweek = globals.DayofWeek(node.day);
+      var sessionTime = globals.secondsToTime(node.datefrom);
+      var sessionRoom = (node.room != null) ? " | " + node.room : '';
       var sessionExtra = Ti.UI.createLabel({
         text: dayofweek + " | " + sessionTime + sessionRoom,
         width: "auto",
@@ -123,7 +123,6 @@ exports.speakerDetailWindow = function(opts) {
         selectionStyle: "none"
       });
       sdata.push(paddingRow);
-      sessions.next();
     }
   }
   
