@@ -112,6 +112,7 @@ Ti.App.addEventListener('day.click', function(opts){
 Ti.App.addEventListener('map.click', function(opts) {
   var winClass = require('ui/common/staticPageWindow').staticPageWindow;
   var mapDetailWindow = new winClass(opts);
+  /**
   if (globals.osname === "ipad") {
     Ti.App.fireEvent('detailView.change', {
       requirejs: 'ui/common/staticPageWindow',
@@ -121,6 +122,8 @@ Ti.App.addEventListener('map.click', function(opts) {
   } else {
     Ti.API._activeTab.open(mapDetailWindow, {animated: true});
   }
+  */
+  Ti.API._activeTab.open(mapDetailWindow, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
     callback();
