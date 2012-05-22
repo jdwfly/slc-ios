@@ -142,12 +142,12 @@ function getTweetData() {
           post_view.add(date_label);
     
           var tweet_text = Ti.UI.createLabel({
-            text:tweet,
+            text: globals.html_decode(tweet),
             left:54,
             top:0,
             bottom:2,
             height:'auto',
-            width:236,
+            width: 'auto',
             textAlign:'left',
             font:{fontSize:14}
           });
@@ -203,7 +203,7 @@ function getPhotoData() {
           cellHeight: 100,
           xSpacer: 1,
           ySpacer: 1,
-          xGrid: 3
+          xGrid: (globals.osname == 'ipad') ? 5 : 3
         });
         
         var row = Ti.UI.createTableViewRow({
