@@ -38,7 +38,7 @@ exports.mapsTableView = function() {
     {title: "Revels Floor 1", hasChild:dataHasChild, winClass:'../pages/staticpage.js', arg: 'revels1.html'},
     {title: "Revels Floor 2", hasChild:dataHasChild, winClass:'../pages/staticpage.js', arg: 'revels2.html'},
     {title: "Revels Floor 3", hasChild:dataHasChild, winClass:'../pages/staticpage.js', arg: 'revels3.html'},
-    {title: "Nursery 0-35 months", hasChild:dataHasChild, winClass:'../pages/staticpage.js', arg: 'nursery.html'}
+    {title: "Nursery", hasChild:dataHasChild, winClass:'../pages/staticpage.js', arg: 'nursery.html'}
   ];
 
   instance = Ti.UI.createTableView({data:data, backgroundColor: 'transparent'});
