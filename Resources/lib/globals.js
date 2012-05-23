@@ -3,17 +3,18 @@ var _debug = false;
 var _baseUrl = "http://www.lancasterbaptist.org/slc/json";
 var _eventsUrl = "/events";
 var _speakersUrl = "/speakers";
-var _livestreamUrl = "/livestream";
+var _liveUrl = "/livestream";
 var _slcDB = Ti.Database.open('slcdb');
 _slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, track TEXT, weight TEXT, download TEXT, notes TEXT)');
 _slcDB.close();
 var _speakerData = "";
+var _liveData = "";
 
 exports.osname = _osname;
 exports.baseUrl = _baseUrl;
 exports.eventsUrl = _eventsUrl;
 exports.speakersUrl = _speakersUrl;
-exports.livestreamUrl = _livestreamUrl;
+exports.liveUrl = _liveUrl;
 
 // Sets whether we are in debug or not
 // value = Boolean
@@ -40,6 +41,17 @@ exports.setSpeakerData = function(value) {
 
 exports.speakerData = function() {
   return _speakerData;
+}
+
+exports.setLiveData = function(value) {
+  if (value) {
+    _liveData = value;
+    return _liveData;
+  }
+  return false;
+}
+exports.liveData = function() {
+  return _liveData;
 }
 
 exports.slcdbSaveEvents = function(events) {
@@ -274,6 +286,9 @@ exports.secondsToTime = function(seconds) {
 
 // Helper function to replace certain encoded characters
 exports.html_decode = function(string) {
+  if (string == undefined) {
+    return;
+  }
   string = string.replace(/&#039;/gi, "'");
   string = string.replace(/&amp;/gi, "&");
   return string;

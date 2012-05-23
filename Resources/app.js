@@ -153,6 +153,34 @@ Ti.App.addEventListener('live.click', function() {
     }).show();
   }
 });
+Ti.App.addEventListener('live.update', function(args) {
+  if (Ti.Network.online) {
+    var live_xhr = new HTTPClientWithCache({
+      baseUrl: globals.baseUrl,
+      retryCount: 2,
+      cacheSeconds: 300,
+      onload: function(response) {
+        Ti.API.info("Response Data: "+ response.responseText);
+        Ti.API.info("Is this cached data?: " + response.cached);
+        globals.setLiveData(response.responseText);
+        Ti.App.fireEvent('live.updateTableView');
+        if (typeof args.callback === 'function') {
+          args.callback;
+        }
+      }
+    });
+    if (args.prune) {
+      live_xhr.prune_cache(0);
+    }
+    live_xhr.post({url: globals.liveUrl});
+  } else {
+    var dialog = Ti.UI.createAlertDialog({
+      title: 'Oh noes!',
+      message: 'You must be online in order to update the live stream event feed.',
+      ok: 'Okay'
+    }).show();
+  }
+});
 
 Ti.App.addEventListener('photos.click', function(opts) {
   var winClass = require('ui/common/photosDetailWindow').photosDetailWindow;
