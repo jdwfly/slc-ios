@@ -97,7 +97,7 @@ exports.speakerDetailWindow = function(opts) {
         top: 0,
         left: 20,
         font: {fontSize:14},
-        width: 275,
+        width: "auto",
         height: "auto",
         color: "#b0b0b0"
       });
