@@ -2,7 +2,7 @@ var globals = require('lib/globals');
 exports.liveWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Live Stream',
-    backgroundColor: '#313131',
+    backgroundColor: '#e9e9e9',
     barColor: '#3b587b'
   });
   
@@ -29,10 +29,10 @@ exports.liveWindow = function() {
   }
   
   var liveImage = Ti.UI.createImageView({
-    image: "/data/livestream.jpg",
-    top: 20,
+    image: "/data/livestream.png",
+    top: 5,
     width: 142,
-    height: 104
+    height: 142
   });
   instance.add(liveImage);
   var liveButton = Ti.UI.createButton({
@@ -41,7 +41,7 @@ exports.liveWindow = function() {
     width: 200,
     height: 40,
     top: 140,
-    backgroundImage: "data/watchlive.jpg"  
+    backgroundImage: "data/watchlive.png"  
   });
   liveButton.addEventListener('click', function(f) {
     Ti.App.fireEvent('live.click');
