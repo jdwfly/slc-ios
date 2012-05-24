@@ -1,6 +1,6 @@
 var globals = require('lib/globals');
 var tableView = Ti.UI.createTableView({
-  height: 150,
+  height: (globals.osname === "ipad") ? 300 : 150,
   bottom: 0,
   backgroundColor: '#e9e9e9',
   separatorColor: '#e9e9e9'
@@ -69,7 +69,7 @@ function updateLiveData() {
   data = [];
   for (var i = 0, nodes; nodes = parseData.nodes[i]; i++) {
     node = nodes.node; // annoying but needed    
-    var row = Ti.UI.createTableViewRow({height:'auto', selectionStyle: "none"});
+    var row = Ti.UI.createTableViewRow({height: Ti.UI.FILL, selectionStyle: "none"});
     content = Ti.UI.createView({
       height: 'auto',
       width: 'auto',

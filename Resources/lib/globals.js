@@ -3,7 +3,7 @@ var _debug = false;
 var _baseUrl = "http://www.lancasterbaptist.org/slc/json";
 var _eventsUrl = "/events";
 var _speakersUrl = "/speakers";
-var _liveUrl = "/livestream";
+var _liveUrl = "/liveevents";
 var _slcDB = Ti.Database.open('slcdb');
 _slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, eventtype TEXT, day TEXT, datefrom TEXT, dateto TEXT, speaker TEXT, room TEXT, track TEXT, weight TEXT, download TEXT, notes TEXT)');
 _slcDB.close();
