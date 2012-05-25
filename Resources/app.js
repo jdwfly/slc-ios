@@ -24,8 +24,8 @@ Ti.App.addEventListener('events.update', function(args){
       retryCount: 2,
       cacheSeconds: 10,
       onload: function(response) {
-        Ti.API.info("Response Data: "+ response.responseText);
-        Ti.API.info("Is this cached data?: " + response.cached);
+        //Ti.API.info("Response Data: "+ response.responseText);
+        //Ti.API.info("Is this cached data?: " + response.cached);
         globals.slcdbSaveEvents(response.responseText);
         if (typeof args.callback === 'function') {
           args.callback;
@@ -59,8 +59,8 @@ Ti.App.addEventListener('speakers.update', function(args){
       retryCount: 2,
       cacheSeconds: 300,
       onload: function(response) {
-        Ti.API.info("Response Data: "+ response.responseText);
-        Ti.API.info("Is this cached data?: " + response.cached);
+        //Ti.API.info("Response Data: "+ response.responseText);
+        //Ti.API.info("Is this cached data?: " + response.cached);
         globals.setSpeakerData(response.responseText);
         Ti.App.fireEvent('speakers.updateTableView');
         if (typeof args.callback === 'function') {
@@ -160,8 +160,8 @@ Ti.App.addEventListener('live.update', function(args) {
       retryCount: 2,
       cacheSeconds: 300,
       onload: function(response) {
-        Ti.API.info("Response Data: "+ response.responseText);
-        Ti.API.info("Is this cached data?: " + response.cached);
+        //Ti.API.info("Response Data: "+ response.responseText);
+        //Ti.API.info("Is this cached data?: " + response.cached);
         globals.setLiveData(response.responseText);
         Ti.App.fireEvent('live.updateTableView');
         if (typeof args.callback === 'function') {
