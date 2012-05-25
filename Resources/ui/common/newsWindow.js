@@ -10,6 +10,7 @@ exports.newsWindow = function() {
     backgroundColor: '#eeeeee',
     barColor: '#3b587b'
   });
+  instance.orientationModes = [Ti.UI.PORTRAIT];
   
   // iPhone Specific Code
   if (globals.osname === 'iphone' || globals.osname === 'ipad') {
