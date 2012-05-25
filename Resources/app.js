@@ -14,7 +14,10 @@ else {
   // Commented out iPad interface for now :)
   //MainTabView = require('/ui/ipad/mainSplitView').mainSplitView;
 }
-new MainTabView().open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
+if (globals.osname != 'android') {
+  new MainTabView().open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
+}
+new MainTabView().open();
 
 // Global Event Listeners
 Ti.App.addEventListener('events.update', function(args){
