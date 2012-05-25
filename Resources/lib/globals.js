@@ -231,7 +231,7 @@ exports.slcdbGetSessions = function(dateFrom, day) {
 exports.slcdbGetSessionsSpeaker = function(snid) {
   var results = [];
   _slcDB = Ti.Database.open('slcdb');
-  var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND speaker="'+snid+'"');
+  var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND speaker="'+snid+'" ORDER BY day ASC, datefrom ASC');
   Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
