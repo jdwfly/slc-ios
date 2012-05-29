@@ -40,9 +40,9 @@ exports.scheduleWindow = function() {
     backgroundColor: '#eeeeee'
   });
   scheduleTableView.addEventListener('click', function(x) {
-    Ti.API.info("x = "+x.row.getHasChild());
-    if (x.rowData.hasChild) {
-      Ti.App.fireEvent('schedule.click', {nid: x.rowData.nid});
+    Ti.API.info("x = "+x.row.hasChild);
+    if (x.row.hasChild) {
+      Ti.App.fireEvent('schedule.click', {nid: x.row.nid});
     }
   });
   instance.add(scheduleTableView);
