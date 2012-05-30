@@ -37,7 +37,9 @@ exports.newsWindow = function() {
     instance.titleControl = navBar;
   }
   
-  
+  if (globals.osname === 'android') {
+    navBar = {index: 0};
+  }
   
   newsTableView = Ti.UI.createTableView({
     data: tableData,
@@ -58,6 +60,7 @@ exports.newsWindow = function() {
 }
 
 Ti.App.addEventListener('news.updateTableViewData', function(x) {
+  Ti.API.info('Did I get here?');
   if (navBar.index == 0) {
     getTweetData();
   }

@@ -22,7 +22,8 @@ function updateSpeakerData() {
         slcLocation: parseView.nodes[i].node.location,
         sessions: parseView.nodes[i].node.sessions,
         img: parseView.nodes[i].node.img,
-        hasChild: true
+        hasChild: true,
+        color: '#515151'
       });
     } else {
       index.push({title:firstLetter, index:(table.length)});
@@ -36,7 +37,8 @@ function updateSpeakerData() {
         slcLocation: parseView.nodes[i].node.location,
         img: parseView.nodes[i].node.img,
         hasChild: true,
-        header: firstLetter
+        header: firstLetter,
+        color: '#515151'
       });
     }
     curhead = firstLetter;
@@ -57,7 +59,7 @@ exports.speakersWindow = function() {
   
   // Android Specific Code
   if (globals.osname === 'android') {
-    instance.backgroundColor = "#111111";
+    //instance.backgroundColor = "#111111";
     instance.activity.onCreateOptionsMenu = function(e) {
       var menu = e.menu;
       var menuItem = menu.add({title:"Refresh"});

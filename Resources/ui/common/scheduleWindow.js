@@ -17,7 +17,7 @@ exports.scheduleWindow = function() {
       var menuItem = menu.add({title:"Refresh"});
       menuItem.addEventListener("click", function(e) {
         Ti.App.fireEvent('events.update');
-       });
+      });
     };
   }
   
