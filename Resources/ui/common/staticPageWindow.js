@@ -1,3 +1,4 @@
+var globals = require('lib/globals');
 exports.staticPageWindow = function(opts) {
   var instance = Ti.UI.createWindow({
     title: opts.title,
@@ -10,6 +11,13 @@ exports.staticPageWindow = function(opts) {
     scalesPageToFit: true
   });
   instance.add(webView);
+  
+  if (globals.osname === 'android') {
+    instance.addEventListener('android:back', function(e) {
+      webView = null;
+      this.close();
+    });
+  }
   
   return instance;
 };
