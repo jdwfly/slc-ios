@@ -39,6 +39,28 @@ exports.newsWindow = function() {
   
   if (globals.osname === 'android') {
     navBar = {index: 0};
+    instance.activity.onCreateOptionsMenu = function(e) {
+      var menu = e.menu;
+      var menuItem = menu.add({title:"Refresh"});
+      menuItem.addEventListener("click", function(f) {
+        Ti.App.fireEvent('news.updateTableViewData');
+      });
+      var menuNews = menu.add({title: "News"});
+      menuNews.addEventListener('click', function(f) {
+        navBar = {index:0};
+        Ti.App.fireEvent('news.updateTableViewData');
+      });
+      var menuPhotos = menu.add({title: 'Photos'});
+      menuPhotos.addEventListener('click', function(f) {
+        navBar = {index:1};
+        Ti.App.fireEvent('news.updateTableViewData');
+      });
+      var menuVideos = menu.add({title: 'Videos'});
+      menuVideos.addEventListener('click', function(f) {
+        navBar = {index:2};
+        Ti.App.fireEvent('news.updateTableViewData');
+      });
+    };
   }
   
   newsTableView = Ti.UI.createTableView({
@@ -60,7 +82,6 @@ exports.newsWindow = function() {
 }
 
 Ti.App.addEventListener('news.updateTableViewData', function(x) {
-  Ti.API.info('Did I get here?');
   if (navBar.index == 0) {
     getTweetData();
   }
@@ -200,6 +221,7 @@ function getPhotoData() {
           });
           idata.push(v);
         }
+        Ti.API.info(idata);
         // create the scrollable grid view
         var scrollGrid = new ScrollableGridView({
           data: idata,
