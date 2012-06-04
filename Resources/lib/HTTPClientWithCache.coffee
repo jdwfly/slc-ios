@@ -169,14 +169,16 @@ class HTTPClientWithCache
     db = Titanium.Database.open('http_client_cache')
     seconds ?= @options.cacheSeconds
     row = db.execute("SELECT RESPONSE, UPDATED_AT FROM REQUESTS WHERE URL_HASH=? AND UPDATED_AT > DATETIME('now','-#{seconds} seconds')", @url_hash)
-    return if row.rowCount == 0
+    if row.rowCount is 0
+      db.close()
+      return
     responseText = row.field(0)
     cachedAt     = row.field(1)
     row.close()
     db.close()
     {responseText: responseText, cached: true, cached_at: cachedAt, status: 200} if responseText? 
 
-  _exists_in_cache: () -> 
+  _exists_in_cache: () ->
     row = db.execute("SELECT COUNT(*) FROM REQUESTS WHERE URL_HASH=?", @url_hash)
     count = row.field(0)
     row.close()
