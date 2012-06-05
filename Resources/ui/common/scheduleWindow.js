@@ -22,7 +22,6 @@ exports.scheduleWindow = function() {
   }
   
   // iPhone Specific Code
-  Ti.API.info(globals.osname);
   if (globals.osname === 'iphone' || globals.osname === 'ipad') {
     var refresh = Ti.UI.createButton({
       systemButton:Ti.UI.iPhone.SystemButton.REFRESH

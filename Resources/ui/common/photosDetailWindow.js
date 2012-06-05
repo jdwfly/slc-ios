@@ -8,8 +8,6 @@ exports.photosDetailWindow = function(opts) {
   });
   instance.orientationModes = [Ti.UI.PORTRAIT, Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT];
   
-  Ti.API.info("Image = " + opts.image);
-  
   var image = Ti.UI.createImageView({
     image: "http://www.lancasterbaptist.org/slc/" + globals.html_decode(opts.image),
     height: Ti.UI.FILL,

@@ -6,9 +6,6 @@ exports.mapsWindow = function() {
     barColor: '#3b587b'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
-  if (globals.osname === 'android') {
-    //instance.backgroundColor = '#111111';
-  }
   
   var tableView = exports.mapsTableView();
   

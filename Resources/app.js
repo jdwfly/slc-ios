@@ -25,7 +25,7 @@ Ti.App.addEventListener('events.update', function(args){
     var events_xhr = new HTTPClientWithCache({
       baseUrl: globals.baseUrl,
       retryCount: 2,
-      cacheSeconds: 10,
+      cacheSeconds: 300,
       onload: function(response) {
         //Ti.API.info("Response Data: "+ response.responseText);
         //Ti.API.info("Is this cached data?: " + response.cached);
@@ -50,7 +50,6 @@ Ti.App.addEventListener('events.update', function(args){
 });
 // If there are no sessions, populate the database
 var result = globals.dbGetEvents();
-Ti.API.info(typeof result);
 if (result.length == 0) {
   Ti.App.fireEvent('events.update', {prune: true});
 }

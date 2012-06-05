@@ -53,15 +53,16 @@ exports.workshopWindow = function(opts) {
         height: 74,
         width: 63
       });
+      notesImage.notes = node.notes;
       notesImage.addEventListener('click', function(s) {
-        if (s.rowData.notes == "None") {
+        if (this.notes == "None") {
           var dialog = Ti.UI.createAlertDialog({
             message: "We're sorry, but the notes for this session are not available.",
             ok: 'Okay',
             title: 'Oh noes!'
           }).show();
         } else {
-          Ti.Platform.openURL(s.rowData.notes);
+          Ti.Platform.openURL(this.notes);
         }
       });
       row.add(notesImage);

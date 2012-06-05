@@ -50,11 +50,13 @@ exports.newsWindow = function() {
         navBar = {index:0};
         Ti.App.fireEvent('news.updateTableViewData');
       });
+      /**
       var menuPhotos = menu.add({title: 'Photos'});
       menuPhotos.addEventListener('click', function(f) {
         navBar = {index:1};
         Ti.App.fireEvent('news.updateTableViewData');
       });
+      */
       var menuVideos = menu.add({title: 'Videos'});
       menuVideos.addEventListener('click', function(f) {
         navBar = {index:2};
@@ -94,7 +96,6 @@ Ti.App.addEventListener('news.updateTableViewData', function(x) {
 });
 
 Ti.App.addEventListener('news.setTableViewData', function(x) {
-  Ti.API.info(x.data);
   newsTableView.setData(x.data);
 });
 
@@ -103,10 +104,10 @@ function getTweetData() {
     var news_xhr = new HTTPClientWithCache({
       baseUrl: 'https://search.twitter.com/',
       retryCount: 2,
-      cacheSeconds: 10,
+      cacheSeconds: 300,
       onload: function(response) {
-        Ti.API.info("Response Data: "+ response.responseText);
-        Ti.API.info("Is this cached data?: " + response.cached);
+        //Ti.API.info("Response Data: "+ response.responseText);
+        //Ti.API.info("Is this cached data?: " + response.cached);
         var tweets = JSON.parse(response.responseText);
         var data = [];
         for (var c=0; c<tweets.results.length; c++) {
@@ -202,11 +203,11 @@ function getPhotoData() {
     var photos_xhr = new HTTPClientWithCache({
       baseUrl: 'http://www.lancasterbaptist.org/slc/app/1/',
       retryCount: 2,
-      cacheSeconds: 10,
+      cacheSeconds: 300,
       onload: function(response) {
         // Create the imageview data array
-        Ti.API.info("Response Data: "+ response.responseText);
-        Ti.API.info("Is this cached data?: " + response.cached);
+        //Ti.API.info("Response Data: "+ response.responseText);
+        //Ti.API.info("Is this cached data?: " + response.cached);
         var photos = JSON.parse(response.responseText);
         var idata = [];
         for (var c in photos.nodes[0].node.small_link) {
@@ -225,7 +226,6 @@ function getPhotoData() {
           });
           idata.push(v);
         }
-        Ti.API.info(idata);
         // create the scrollable grid view
         var scrollGrid = new ScrollableGridView({
           data: idata,
@@ -265,10 +265,10 @@ function getVideoData() {
     var videos_xhr = new HTTPClientWithCache({
       baseUrl: 'http://www.lancasterbaptist.org/slc/app/1/',
       retryCount: 2,
-      cacheSeconds: 10,
+      cacheSeconds: 300,
       onload: function(response) {
-        Ti.API.info("Response Data: "+ response.responseText);
-        Ti.API.info("Is this cached data?: " + response.cached);
+        //Ti.API.info("Response Data: "+ response.responseText);
+        //Ti.API.info("Is this cached data?: " + response.cached);
         var videos = JSON.parse(response.responseText);
         var tdata = [], row, thumb, title;
         for (var c in videos.nodes) {
