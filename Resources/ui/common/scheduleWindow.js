@@ -146,10 +146,17 @@ function getEventData() {
         height: 16,
         backgroundColor: '#eeeeee'
       });
-      currentSection = Ti.UI.createTableViewSection({
-        headerView: headerView,
-        footerView: footerView
-      });
+      if (globals.osname === "android") {
+        currentSection = Ti.UI.createTableViewSection({
+          headerTitle: formattedDay,
+          footerView: footerView
+        });
+      } else {
+        currentSection = Ti.UI.createTableViewSection({
+          headerView: headerView,
+          footerView: footerView
+        });
+      }
       currentSection.add(row);
     }
     header = currentDay;
