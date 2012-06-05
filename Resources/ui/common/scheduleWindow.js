@@ -129,7 +129,6 @@ function getEventData() {
       }
       var timestamp = globals.strtotime(currentDay) + 25212;
       var formattedDay = globals.date('l, F j', timestamp);
-      Ti.API.info("Formatted Day = " + formattedDay);
       var headerView = Ti.UI.createView({
         backgroundColor: '#eeeeee',
         height: 30,
