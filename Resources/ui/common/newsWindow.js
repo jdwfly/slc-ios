@@ -217,7 +217,11 @@ function getPhotoData() {
             clickImage: encodeURI(photos.nodes[0].node.pictures[c])
           });
           v.addEventListener('click', function(e) {
-            Ti.App.fireEvent('photos.click', {image: this.clickImage});
+            if (globals.osname != 'android') {
+              Ti.App.fireEvent('photos.click', {image: this.clickImage});
+            } else {
+              //Ti.Platform.openURL('http://www.lancasterbaptist.org/slc/' + this.clickImage);
+            }
           });
           idata.push(v);
         }
@@ -233,8 +237,8 @@ function getPhotoData() {
         });
         
         var row = Ti.UI.createTableViewRow({
-          height: '100%',
-          width: '100%',
+          height: 'auto',
+          width: 'auto',
           selectedBackgroundColor: '#eeeeee'
         });
         row.add(scrollGrid);

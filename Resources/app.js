@@ -188,7 +188,7 @@ Ti.App.addEventListener('live.update', function(args) {
 Ti.App.addEventListener('photos.click', function(opts) {
   var winClass = require('ui/common/photosDetailWindow').photosDetailWindow;
   var photoDetailWindow = new winClass(opts);
-  photoDetailWindow.hideTabBar();
+  if (globals.osname != 'android') photoDetailWindow.hideTabBar();
   Ti.API._activeTab.open(photoDetailWindow, {animated: true});
   if (typeof opts.callback === 'function') {
     callback();
