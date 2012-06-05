@@ -289,7 +289,6 @@ function getVideoData() {
           row.vimeo = videos.nodes[c].node.vimeo;
           
           row.addEventListener('click', function(s) {
-            Ti.API.info("Vimeo = "+s.row.vimeo);
             if (s.row.vimeo != undefined) {
               Ti.Platform.openURL('http://vimeo.com/' + s.row.vimeo);
             }
