@@ -64,7 +64,7 @@ exports.speakersWindow = function() {
       var menu = e.menu;
       var menuItem = menu.add({title:"Refresh"});
       menuItem.addEventListener("click", function(e) {
-        Ti.App.fireEvent('speakers.update', updateSpeakerData);
+        Ti.App.fireEvent('speakers.update', {callback: updateSpeakerData, prune: true});
       });
     };
   }
