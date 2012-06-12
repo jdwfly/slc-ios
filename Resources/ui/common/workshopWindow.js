@@ -35,6 +35,7 @@ exports.workshopWindow = function(opts) {
   
   if (opts.nodes.length != 0) {
     for (var i = 0, node; node = opts.nodes[i]; i++) {
+      Ti.API.info(node);
       title = globals.html_decode(node.title);
       speaker = node.speaker;
       room = node.room;
@@ -45,6 +46,7 @@ exports.workshopWindow = function(opts) {
         height: 90
       });
       row.notes = node.notes;
+      row.node = node;
       
       notesImage = Ti.UI.createImageView({
         image: '/data/notes.png',
@@ -112,6 +114,32 @@ exports.workshopWindow = function(opts) {
         height: 1,
         backgroundColor: '#e0e0e0'
       }));
+      
+      row.addEventListener('click', function(e) {
+        Ti.API.info(JSON.stringify(e.row));
+        var options = [];
+        if (e.row.node.notes != 'None') options.push('View Notes');
+        if (e.row.node.download != 'None') options.push('Play Session', 'Download Session');
+        options.push('Cancel');
+        if (options[0] == 'Cancel') return;
+        var sessionDialog = Ti.UI.createOptionDialog({
+          options: options,
+          cancel: globals.array_search('Cancel', options)
+        });
+        sessionDialog.addEventListener('click', function(f) {
+          Ti.API.info(options[f.index]);
+          if (options[f.index] == 'View Notes') {
+            Ti.Platform.openURL(e.row.node.notes);
+          }
+          if (options[f.index] == 'Play Session') {
+            // TODO
+          }
+          if (options[f.index] == 'Download Session') {
+            // TODO
+          }
+        });
+        sessionDialog.show();
+      });
       
       tableData.push(row);
     }
