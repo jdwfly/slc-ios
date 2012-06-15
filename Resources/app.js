@@ -100,6 +100,18 @@ Ti.App.addEventListener('schedule.click', function(opts) {
   }
 });
 
+Ti.App.addEventListener('session.click', function(opts) {
+  var winClass = require('ui/common/audioPlayer').window;
+  var nodeData = globals.dbGetSingleEvent(opts.nid);
+  var args = {node: nodeData};
+  var audioPlayerWin = new winClass(args);
+  Ti.API._activeTab.open(audioPlayerWin, {animated: true});
+  // Run user supplied callback
+  if (typeof opts.callback === 'function') {
+    callback();
+  }
+});
+
 // TODO: Remove this code, no longer needed.
 Ti.App.addEventListener('day.click', function(opts){
   var winClass = require('ui/common/workshopWindow').workshopWindow;

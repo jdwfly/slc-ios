@@ -9,6 +9,7 @@ _slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, even
 _slcDB.close();
 var _speakerData = "";
 var _liveData = "";
+var _nowPlaying = "";
 
 exports.osname = _osname;
 exports.baseUrl = _baseUrl;
@@ -54,6 +55,17 @@ exports.liveData = function() {
   return _liveData;
 }
 
+exports.nowPlaying = function() {
+  return _nowPlaying;
+};
+exports.setNowPlaying = function(value) {
+  if (value) {
+    _nowPlaying = value;
+    return _nowPlaying;
+  }
+  return false;
+};
+
 exports.slcdbSaveEvents = function(events) {
   _slcDB = Ti.Database.open('slcdb');
   _slcDB.execute('DROP TABLE IF EXISTS events');
@@ -79,7 +91,7 @@ exports.slcdbSaveEvents = function(events) {
     );
   }
   Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);
-  Ti.App.fireEvent('schedule.updateTableView');
+  Ti.App.fireEvent('sessions.updateTableView');
   _slcDB.close();
 }
 
@@ -201,7 +213,12 @@ exports.dbGetWorkshopEvents = function(nid) {
 exports.slcdbGetSessions = function(dateFrom, day) {
   var results = [];
   _slcDB = Ti.Database.open('slcdb');
-  var resultSet = _slcDB.execute('SELECT DISTINCT * FROM events WHERE eventtype="Session" AND datefrom="'+dateFrom+'" AND day="'+day+'" ORDER BY weight ASC');
+  if (dateFrom == undefined && day == undefined) {
+    var resultSet = _slcDB.execute('SELECT DISTINCT * FROM events WHERE eventtype="Session" ORDER BY weight ASC');
+  } else {
+    var resultSet = _slcDB.execute('SELECT DISTINCT * FROM events WHERE eventtype="Session" AND datefrom="'+dateFrom+'" AND day="'+day+'" ORDER BY weight ASC');
+  }
+  
   Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
