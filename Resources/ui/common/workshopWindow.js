@@ -133,6 +133,25 @@ exports.workshopWindow = function(opts) {
           }
           if (options[f.index] == 'Play Session') {
             // TODO
+            var audioWindow = Ti.UI.createWindow({
+              title: 'Now Playing',
+              backgroundColor: '#010101'
+            });
+            var audioPlayer = Ti.Media.createAudioPlayer({
+              url: e.row.node.download,
+              allowBackground: true
+            });
+            audioWindow.add(audioPlayer);
+            
+            var playButton = Ti.UI.createButton({
+              
+            });
+            playButton.addEventListener('click', function(d) {
+              audioPlayer.start();
+            });
+            audioWindow.add(playButton);
+            
+            Ti.API._activeTab.open(audioWindow, {animated: true});
           }
           if (options[f.index] == 'Download Session') {
             // TODO
