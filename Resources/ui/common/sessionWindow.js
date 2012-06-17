@@ -44,7 +44,7 @@ exports.window = function() {
     Ti.App.fireEvent('events.update');
   });
   instance.addEventListener('click', function(e) {
-    Ti.App.fireEvent('session.click', {nid: e.row.nid});
+    Ti.App.fireEvent('session.click', {nid: e.row.node.nid});
   });
   
   return instance;
@@ -60,15 +60,81 @@ function getSessionData() {
       data = [],
       row = '',
       title = '';
-  for (var i = 0, item; item = events[i]; i++) {
+  for (var i = 0, node; node = events[i]; i++) {
     // no download, dont show
-    if (item.download == 'None') continue;
-    Ti.API.info(item);
-    title = g.html_decode(item.title);
+    if (node.download == 'None') continue;
+    title = globals.html_decode(node.title);
+    speaker = node.speaker;
+    room = node.room;
+    category = globals.html_decode(node.track);
     row = Ti.UI.createTableViewRow({
-      title: title
+      backgroundColor: '#eeeeee',
+      layout: 'absolute',
+      height: 98
     });
-    row.nid = item.nid;
+    row.notes = node.notes;
+    row.node = node;
+    
+    notesImage = Ti.UI.createImageView({
+      image: '/data/notes.png',
+      left: 15,
+      top: 5,
+      height: 74,
+      width: 63
+    });
+    notesImage.notes = node.notes;
+    notesImage.addEventListener('click', function(s) {
+      if (this.notes == "None") {
+        var dialog = Ti.UI.createAlertDialog({
+          message: "We're sorry, but the notes for this session are not available.",
+          ok: 'Okay',
+          title: 'Oh noes!'
+        }).show();
+      } else {
+        Ti.Platform.openURL(this.notes);
+      }
+    });
+    row.add(notesImage);
+    
+    textView = Ti.UI.createView({
+      top: 5,
+      left: 85,
+      width: '70%',
+      height: 'auto',
+      layout: 'vertical'
+    });
+    
+    titleLabel = Ti.UI.createLabel({
+      text: title,
+      color: '#273a51',
+      font: {fontWeight: 'bold'},
+      left: 0
+    });
+    textView.add(titleLabel);
+    
+    speakerLabel = Ti.UI.createLabel({
+      text: speaker,
+      color: '#4d73a0',
+      font: {fontSize: 12},
+      left: 0
+    });
+    textView.add(speakerLabel);
+    
+    categoryLabel = Ti.UI.createLabel({
+      text: category,
+      color: '#515151',
+      font: {fontSize: 12, fontStyle: 'italic'},
+      left: 0
+    });
+    textView.add(categoryLabel);
+    
+    row.add(textView);
+    row.add(Ti.UI.createView({
+      bottom: 0,
+      width: "90%",
+      height: 1,
+      backgroundColor: '#e0e0e0'
+    }));
     data.push(row);
   }
   return data;
