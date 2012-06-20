@@ -48,5 +48,6 @@
     </android>
     <modules>
         <module platform="iphone" version="1.3.0">ti.flurry</module>
+        <module platform="android" version="2.0.0">ti.flurry</module>
     </modules>
 </ti:app>
