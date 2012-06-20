@@ -5,3 +5,4 @@ tmp
 build
 *.log
 *.DS_Store
+.fastdev.lock
