@@ -12,7 +12,7 @@ exports.window = function() {
   instance.orientationModes = [Ti.UI.PORTRAIT];
   
   // Android Specific Code
-  if (globals.osname === 'android') {
+  if (g.osname === 'android') {
     instance.backgroundColor = "#111111";
     instance.activity.onCreateOptionsMenu = function(e) {
       var menu = e.menu;
@@ -24,7 +24,7 @@ exports.window = function() {
   }
   
   // iPhone Specific Code
-  if (globals.osname === 'iphone' || globals.osname === 'ipad') {
+  if (g.osname === 'iphone' || g.osname === 'ipad') {
     var refresh = Ti.UI.createButton({
       systemButton:Ti.UI.iPhone.SystemButton.REFRESH
     });
@@ -63,10 +63,10 @@ function getSessionData() {
   for (var i = 0, node; node = events[i]; i++) {
     // no download, dont show
     if (node.download == 'None') continue;
-    title = globals.html_decode(node.title);
+    title = g.html_decode(node.title);
     speaker = node.speaker;
     room = node.room;
-    category = globals.html_decode(node.track);
+    category = g.html_decode(node.track);
     row = Ti.UI.createTableViewRow({
       backgroundColor: '#eeeeee',
       layout: 'absolute',
