@@ -50,12 +50,33 @@ exports.window = function(opts) {
     width: 44,
     height: 44
   });
+  playButton.addEventListener('click', function(e) {
+    Ti.API.info('Play was clicked');
+    Ti.API.info(audioPlayer);
+    Ti.API.info('Is playing :' + audioPlayer.getPlaying());
+    Ti.API.info('Is paused  :' + audioPlayer.getPaused());
+    Ti.API.info('url        :' + audioPlayer.getUrl());
+    if (audioPlayer.getUrl() != opts.node.download) {
+      audioPlayer.stop();
+      audioPlayer.setUrl(opts.node.download);
+    }
+    if (!audioPlayer.getPlaying() && !audioPlayer.getPaused()) {
+      audioPlayer.setUrl(opts.node.download);
+      audioPlayer.start();
+    }
+    if (audioPlayer.getPaused()) {
+      audioPlayer.start();
+    }
+  });
   buttonView.add(playButton);
   var pauseButton = Ti.UI.createView({
     backgroundImage: '/data/37-circle-pause.png',
     width: 44,
     height: 44,
     left: 10
+  });
+  pauseButton.addEventListener('click', function(e) {
+    audioPlayer.pause();
   });
   buttonView.add(pauseButton);
   

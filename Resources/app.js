@@ -8,7 +8,6 @@ if (globals.osname === 'iphone' || globals.osname === 'ipad') {
   Flurry.initialize("KY6S957MMTP2NVBXXD8B");
 }
 
-
 var MainTabView;
 if (globals.osname === 'iphone' || globals.osname === 'android') {
   MainTabView = require('/ui/common/mainTabView').mainTabView;
@@ -208,4 +207,9 @@ Ti.App.addEventListener('photos.click', function(opts) {
   if (typeof opts.callback === 'function') {
     callback();
   }
+});
+
+// Audio Player init - Not sure where else to do this
+var audioPlayer = Ti.Media.createAudioPlayer({
+  
 });
