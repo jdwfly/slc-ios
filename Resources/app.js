@@ -105,7 +105,7 @@ Ti.App.addEventListener('schedule.click', function(opts) {
 });
 
 Ti.App.addEventListener('session.click', function(opts) {
-  var winClass = require('ui/common/audioPlayer').window;
+  var winClass = require('ui/common/sessionDetailWindow').window;
   var nodeData = globals.dbGetSingleEvent(opts.nid);
   var args = {node: nodeData[0]};
   var audioPlayerWin = new winClass(args);

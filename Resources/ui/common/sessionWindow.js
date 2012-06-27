@@ -70,11 +70,11 @@ function getSessionData() {
     row = Ti.UI.createTableViewRow({
       backgroundColor: '#eeeeee',
       layout: 'absolute',
-      height: 98
+      height: 78
     });
     row.notes = node.notes;
     row.node = node;
-    
+    /**
     notesImage = Ti.UI.createImageView({
       image: '/data/notes.png',
       left: 15,
@@ -95,11 +95,12 @@ function getSessionData() {
       }
     });
     row.add(notesImage);
+    */
     
     textView = Ti.UI.createView({
       top: 5,
-      left: 85,
-      width: '70%',
+      left: 15,
+      width: 'auto',
       height: 'auto',
       layout: 'vertical'
     });
