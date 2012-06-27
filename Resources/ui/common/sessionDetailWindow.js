@@ -16,7 +16,7 @@ exports.window = function(opts) {
   });
   
   var titleLabel = Ti.UI.createLabel({
-    text: opts.node.title,
+    text: g.html_decode(opts.node.title),
     color: '#273a51',
     font: {fontWeight: 'bold'},
     left: 0
@@ -30,7 +30,7 @@ exports.window = function(opts) {
   });
   textView.add(speakerLabel);
   var categoryLabel = Ti.UI.createLabel({
-    text: opts.node.track,
+    text: g.html_decode(opts.node.track),
     color: '#515151',
     font: {fontSize: 12, fontStyle: 'italic'},
     left: 0
