@@ -10,7 +10,7 @@ exports.window = function() {
     barColor: '#3b587b'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
-  
+
   // Android Specific Code
   if (g.osname === 'android') {
     instance.backgroundColor = "#111111";
