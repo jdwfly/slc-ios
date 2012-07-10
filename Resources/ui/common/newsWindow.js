@@ -25,7 +25,7 @@ exports.newsWindow = function() {
     // create button bar toolbar
     // will need to make this compat for android
     navBar = Ti.UI.iOS.createTabbedBar({
-      labels: ['News', 'Photos', 'Videos'],
+      labels: ['Photos', 'Videos'],
       index: 0,
       backgroundColor: '#3b587b',
       style:Titanium.UI.iPhone.SystemButtonStyle.BAR,
@@ -84,13 +84,16 @@ exports.newsWindow = function() {
 }
 
 Ti.App.addEventListener('news.updateTableViewData', function(x) {
+  /**
+  removed after conference
   if (navBar.index == 0) {
     getTweetData();
   }
-  if (navBar.index == 1) {
+  */
+  if (navBar.index == 0) {
     getPhotoData();
   }
-  if (navBar.index == 2) {
+  if (navBar.index == 1) {
     getVideoData();
   }
 });

@@ -28,8 +28,8 @@ exports.mainTabView = function() {
   
   var newsWindow = require('ui/common/newsWindow').newsWindow;
   var newsTab = Ti.UI.createTab({
-    icon: 'data/56-feed.png',
-    title: 'News',
+    icon: 'data/45-movie-1.png',
+    title: 'Media',
     window: new newsWindow()
   });
   
