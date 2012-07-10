@@ -51,12 +51,45 @@ exports.liveWindow = function() {
     width: 'auto',
     top: 185
   });
-  instance.add(lsTitle);  
-  tableView.data = data;
-  instance.add(tableView);
+  instance.add(lsTitle);
+  
+  var lsServicesView = Ti.UI.createView({
+    width: 'auto',
+    top: 215,
+    height: 'auto',
+    layout: 'vertical'
+  });
+  var lsSunAM = Ti.UI.createLabel({
+    text: 'Sunday Morning @ 11 am',
+    font: {fontSize: '14', fontWeight: 'bold'},
+    color: "#313131",
+    height: 'auto',
+    width: 'auto'
+  });
+  var lsSunPM = Ti.UI.createLabel({
+    text: 'Sunday Evening @ 5:30 pm',
+    font: {fontSize: '14', fontWeight: 'bold'},
+    color: "#313131",
+    height: 'auto',
+    width: 'auto'
+  });
+  var lsWed = Ti.UI.createLabel({
+    text: 'Wednesday Evening @ 7 pm',
+    font: {fontSize: '14', fontWeight: 'bold'},
+    color: "#313131",
+    height: 'auto',
+    width: 'auto'
+  });
+  lsServicesView.add(lsSunAM);
+  lsServicesView.add(lsSunPM);
+  lsServicesView.add(lsWed);
+  instance.add(lsServicesView);
+    
+  //tableView.data = data;
+  //instance.add(tableView);
   
   instance.addEventListener('focus', function(f) {
-    Ti.App.fireEvent('live.update');
+    //Ti.App.fireEvent('live.update');
   });
   
   return instance;
