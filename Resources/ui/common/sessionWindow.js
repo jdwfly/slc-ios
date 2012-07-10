@@ -1,5 +1,5 @@
 var g = require('lib/globals');
-var tableView = Ti.UI.createTableView();
+var tableView = '';
 var data = [];
 var index = [];
 
@@ -34,10 +34,31 @@ exports.window = function() {
     instance.rightNavButton = refresh;
   }
   
-  var search = Ti.UI.createSearchBar();
+  var search = Ti.UI.createSearchBar({
+    showCancel: true
+  });
+  search.addEventListener('change', function(e) {
+    e.value;
+  });
+  search.addEventListener('return', function(e) {
+    search.blur();
+  });
+  search.addEventListener('cancel', function(e) {
+    search.blur();
+  });
+  tableView = Ti.UI.createTableView({
+    data: getSessionData(),
+    search: search,
+    searchHidden: false,
+    filterAttribute: 'searchTerm'
+  })
+  /**
   tableView.data = getSessionData();
   tableView.search = search;
-  tableView.index = index;
+  tableView.searchHidden = false;
+  tableView.filterAttribute = 'searchTerm';
+  //tableView.index = index;
+  */
   instance.add(tableView);
   
   instance.addEventListener('focus', function(e) {
@@ -70,11 +91,14 @@ function getSessionData() {
     row = Ti.UI.createTableViewRow({
       backgroundColor: '#eeeeee',
       layout: 'absolute',
-      height: 78
+      height: 78,
+      searchTerm: title + ' ' + speaker + ' ' + category,
+      hasChild: true
     });
-    row.notes = node.notes;
     row.node = node;
+    Ti.API.info("row.searchTerm = " + row.searchTerm);
     /**
+    row.notes = node.notes;
     notesImage = Ti.UI.createImageView({
       image: '/data/notes.png',
       left: 15,
