@@ -61,8 +61,10 @@ exports.window = function() {
   */
   instance.add(tableView);
   
-  instance.addEventListener('focus', function(e) {
-    Ti.App.fireEvent('events.update');
+  instance.addEventListener('open', function(e) {
+    instance.addEventListener('focus', function(f) {
+      Ti.App.fireEvent('events.update');
+    });
   });
   instance.addEventListener('click', function(e) {
     Ti.App.fireEvent('session.click', {nid: e.row.node.nid});
@@ -96,7 +98,6 @@ function getSessionData() {
       hasChild: true
     });
     row.node = node;
-    Ti.API.info("row.searchTerm = " + row.searchTerm);
     /**
     row.notes = node.notes;
     notesImage = Ti.UI.createImageView({

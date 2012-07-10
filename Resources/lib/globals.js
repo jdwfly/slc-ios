@@ -99,7 +99,7 @@ exports.slcdbGetEvents = function(dateString) {
   var results = [];
   _slcDB = Ti.Database.open('slcdb');
   var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" AND day="'+dateString+'" ORDER BY datefrom ASC');
-  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  Ti.API.info('slcdbGetEvents ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
@@ -125,7 +125,7 @@ exports.dbGetEvents = function() {
   var results = [];
   _slcDB = Ti.Database.open('slcdb');
   var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" ORDER BY day ASC, datefrom ASC');
-  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  Ti.API.info('dbGetEvents ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
@@ -219,7 +219,7 @@ exports.slcdbGetSessions = function(dateFrom, day) {
     var resultSet = _slcDB.execute('SELECT DISTINCT * FROM events WHERE eventtype="Session" AND datefrom="'+dateFrom+'" AND day="'+day+'" ORDER BY weight ASC');
   }
   
-  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  Ti.API.info('slcdbGetSessions ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
