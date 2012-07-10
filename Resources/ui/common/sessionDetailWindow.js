@@ -81,6 +81,23 @@ exports.window = function(opts) {
   buttonView.add(pauseButton);
   
   instance.add(buttonView);
+  if (opts.node.notes) {
+    var notesButton = Ti.UI.createLabel({
+      text: 'Notes',
+      backgroundColor: '#333333',
+      color: '#ffffff',
+      top: 330,
+      left: 210,
+      width: 100,
+      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+      borderRadius: 5
+    });
+    notesButton.notes = opts.node.notes;
+    notesButton.addEventListener('click', function(e) {
+      Ti.Platform.openURL(this.notes);
+    });
+    instance.add(notesButton);
+  }
   
   return instance;
 };
