@@ -1,11 +1,20 @@
 // GLOBAL VARS
 var globals = require('lib/globals');
 var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
-var Flurry = require('ti.flurry');
+var flurry = require('sg.flurry');
+
 if (globals.osname === 'iphone' || globals.osname === 'ipad') {
-  Flurry.initialize("4FIT53J4GC77BQB84HX2");
+  flurry.secureTransport(true);
+  flurry.logUncaughtExceptions(true);
+  flurry.crashReportingEnabled(true);
+  flurry.startSession('4FIT53J4GC77BQB84HX2');
 } else if (globals.osname === 'android') {
-  Flurry.initialize("KY6S957MMTP2NVBXXD8B");
+  flurry.setContinueSessionMillis(10000);
+  flurry.setReportLocation(true);
+  flurry.setUseHttps(true);
+  flurry.setCaptureUncaughtExceptions(true);
+  flurry.onStartSession('KY6S957MMTP2NVBXXD8B');
+  flurry.onEndSession();
 }
 
 var MainTabView;
