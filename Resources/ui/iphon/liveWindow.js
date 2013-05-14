@@ -96,7 +96,7 @@ exports.liveWindow = function() {
 }
 
 function updateLiveData() {
-  Ti.API.info(globals.liveData());
+  //Ti.API.info(globals.liveData());
   parseData = JSON.parse(globals.liveData());
   var i = 0;
   data = [];

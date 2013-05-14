@@ -3,7 +3,7 @@ var tableView = Titanium.UI.createTableView();
 var table = [];
 var index = [];
 function updateSpeakerData() {
-  Ti.API.info(globals.speakerData());
+  //Ti.API.info(globals.speakerData());
   parseView = JSON.parse(globals.speakerData());
   var i=0;
   table = [];

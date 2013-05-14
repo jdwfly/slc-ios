@@ -5,7 +5,7 @@ exports.window = function(opts) {
     backgroundImage: "/data/sessionPlayerBG.png",
     barColor: '#3b587b'
   });
-  Ti.API.info(opts);
+  //Ti.API.info(opts);
   
   var textView = Ti.UI.createView({
     top: 275,
@@ -51,11 +51,11 @@ exports.window = function(opts) {
     height: 44
   });
   playButton.addEventListener('click', function(e) {
-    Ti.API.info('Play was clicked');
-    Ti.API.info(audioPlayer);
-    Ti.API.info('Is playing :' + audioPlayer.getPlaying());
-    Ti.API.info('Is paused  :' + audioPlayer.getPaused());
-    Ti.API.info('url        :' + audioPlayer.getUrl());
+    //Ti.API.info('Play was clicked');
+    //Ti.API.info(audioPlayer);
+    //Ti.API.info('Is playing :' + audioPlayer.getPlaying());
+    //Ti.API.info('Is paused  :' + audioPlayer.getPaused());
+    //Ti.API.info('url        :' + audioPlayer.getUrl());
     if (audioPlayer.getUrl() != opts.node.download) {
       audioPlayer.stop();
       audioPlayer.setUrl(opts.node.download);

@@ -74,7 +74,7 @@ exports.speakerDetailWindow = function(opts) {
   
   // Now add the sessions if the speaker has any
   var sessions = globals.slcdbGetSessionsSpeaker(opts.title);
-  Ti.API.info("Total sessions for "+opts.title+": "+sessions.length);
+  //Ti.API.info("Total sessions for "+opts.title+": "+sessions.length);
   if (sessions.length > 0) {
     var sessionHeader = Ti.UI.createTableViewRow({selectionStyle: "none"});
     var sessionHeaderTitle = Ti.UI.createLabel({

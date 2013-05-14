@@ -35,7 +35,7 @@ exports.workshopWindow = function(opts) {
   
   if (opts.nodes.length != 0) {
     for (var i = 0, node; node = opts.nodes[i]; i++) {
-      Ti.API.info(node);
+      //Ti.API.info(node);
       title = globals.html_decode(node.title);
       speaker = node.speaker;
       room = node.room;
@@ -116,7 +116,7 @@ exports.workshopWindow = function(opts) {
       }));
       
       row.addEventListener('click', function(e) {
-        Ti.API.info(JSON.stringify(e.row));
+        //Ti.API.info(JSON.stringify(e.row));
         var options = [];
         if (e.row.node.notes != 'None') options.push('View Notes');
         if (e.row.node.download != 'None') options.push('Play Session', 'Download Session');
@@ -127,7 +127,7 @@ exports.workshopWindow = function(opts) {
           cancel: globals.array_search('Cancel', options)
         });
         sessionDialog.addEventListener('click', function(f) {
-          Ti.API.info(options[f.index]);
+          //Ti.API.info(options[f.index]);
           if (options[f.index] == 'View Notes') {
             Ti.Platform.openURL(e.row.node.notes);
           }

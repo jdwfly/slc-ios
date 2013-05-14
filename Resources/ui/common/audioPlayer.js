@@ -3,7 +3,7 @@ var videoPlayer = '';
 Titanium.Media.audioSessionMode = Ti.Media.AUDIO_SESSION_MODE_AMBIENT;
 
 exports.window = function(opts) {
-  Ti.API.info(opts);
+  //Ti.API.info(opts);
   var instance = Ti.UI.createWindow({
     title: 'Listen',
     backgroundColor: '#eeeeee',

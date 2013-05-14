@@ -29,8 +29,8 @@ function getPhotoData() {
       cacheSeconds: 10,
       onload: function(response) {
         // Create the imageview data array
-        Ti.API.info("Response Data: "+ response.responseText);
-        Ti.API.info("Is this cached data?: " + response.cached);
+        //Ti.API.info("Response Data: "+ response.responseText);
+        //Ti.API.info("Is this cached data?: " + response.cached);
         var photos = JSON.parse(response.responseText);
         var idata = [];
         for (var c in photos.nodes[0].node.small_link) {

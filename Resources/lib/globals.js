@@ -90,7 +90,7 @@ exports.slcdbSaveEvents = function(events) {
       parseEvents.nodes[i].node.notes
     );
   }
-  Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);
+  //Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);
   Ti.App.fireEvent('sessions.updateTableView');
   _slcDB.close();
 }
@@ -99,7 +99,7 @@ exports.slcdbGetEvents = function(dateString) {
   var results = [];
   _slcDB = Ti.Database.open('slcdb');
   var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" AND day="'+dateString+'" ORDER BY datefrom ASC');
-  Ti.API.info('slcdbGetEvents ROWS FETCHED = ' + resultSet.getRowCount());
+  //Ti.API.info('slcdbGetEvents ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
@@ -125,7 +125,7 @@ exports.dbGetEvents = function() {
   var results = [];
   _slcDB = Ti.Database.open('slcdb');
   var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" ORDER BY day ASC, datefrom ASC');
-  Ti.API.info('dbGetEvents ROWS FETCHED = ' + resultSet.getRowCount());
+  //Ti.API.info('dbGetEvents ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
@@ -153,7 +153,7 @@ exports.dbGetSingleEvent = function(nid) {
   var results = [];
   _slcDB = Ti.Database.open('slcdb');
   var resultSet = _slcDB.execute('SELECT * FROM events WHERE nid='+nid);
-  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  //Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
@@ -182,7 +182,7 @@ exports.dbGetWorkshopEvents = function(nid) {
   _slcDB = Ti.Database.open('slcdb');
   var parentNode = _slcDB.execute('SELECT * FROM events WHERE nid='+nid);
   var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND day="'+parentNode.fieldByName('day')+'" AND datefrom='+parentNode.fieldByName('datefrom')+' ORDER BY weight ASC');
-  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  //Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
@@ -219,7 +219,7 @@ exports.slcdbGetSessions = function(dateFrom, day) {
     var resultSet = _slcDB.execute('SELECT DISTINCT * FROM events WHERE eventtype="Session" AND datefrom="'+dateFrom+'" AND day="'+day+'" ORDER BY weight ASC');
   }
   
-  Ti.API.info('slcdbGetSessions ROWS FETCHED = ' + resultSet.getRowCount());
+  //Ti.API.info('slcdbGetSessions ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
@@ -249,7 +249,7 @@ exports.slcdbGetSessionsSpeaker = function(snid) {
   var results = [];
   _slcDB = Ti.Database.open('slcdb');
   var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype="Session" AND speaker="'+snid+'" ORDER BY day ASC, datefrom ASC');
-  Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
+  //Ti.API.info('ROWS FETCHED = ' + resultSet.getRowCount());
   while (resultSet.isValidRow()) {
     results.push({
       nid: resultSet.fieldByName('nid'),
