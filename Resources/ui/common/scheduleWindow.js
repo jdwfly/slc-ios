@@ -65,6 +65,7 @@ function getEventData() {
   var row = '';
   var time, room, title, topView, bottomView, timeLabel, roomLabel, titleLabel;
   for (x in events) {
+    //Ti.API.info(x);
     currentDay = events[x].day;
     time = globals.secondsToTime(events[x].datefrom) + "-" + 
            globals.secondsToTime(events[x].dateto);
