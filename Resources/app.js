@@ -4,7 +4,6 @@ var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache
 var flurry = require('sg.flurry');
 
 if (globals.osname === 'iphone' || globals.osname === 'ipad') {
-  
   flurry.secureTransport(true);
   flurry.logUncaughtExceptions(true);
   flurry.crashReportingEnabled(true);
