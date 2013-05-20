@@ -87,6 +87,7 @@ exports.speakerDetailWindow = function(opts) {
     sessionHeader.add(sessionHeaderTitle);
     sdata.push(sessionHeader);
     for  (var i = 0, node; node = sessions[i]; i++) {
+      Ti.API.info(node);
       var sessionRow = Ti.UI.createTableViewRow({
         height: "auto",
         layout: "vertical",
@@ -116,6 +117,20 @@ exports.speakerDetailWindow = function(opts) {
       
       sessionRow.add(sessionTitle);
       sessionRow.add(sessionExtra);
+      
+      if (node.notes == 'None') {
+        notesImage = Ti.UI.createImageView({
+          image: '/data/179-notepad.png',
+          right: 15,
+          top: -30
+        });
+        notesImage.addEventListener('click', function(g) {
+          Ti.API.info(g);
+          Ti.Platform.openURL(this.notes);
+        });
+        sessionRow.add(notesImage);
+      }
+      
       sdata.push(sessionRow);
       
       var paddingRow = Ti.UI.createTableViewRow({
