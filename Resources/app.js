@@ -1,14 +1,16 @@
 // GLOBAL VARS
 var globals = require('lib/globals');
 var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
-var flurry = require('sg.flurry');
+
 
 if (globals.osname === 'iphone' || globals.osname === 'ipad') {
+  var flurry = require('sg.flurry');
   flurry.secureTransport(true);
   flurry.logUncaughtExceptions(true);
   flurry.crashReportingEnabled(true);
   flurry.startSession('4FIT53J4GC77BQB84HX2');
-} else if (globals.osname === 'android') {
+} 
+/*else if (globals.osname === 'android') {
   flurry.setContinueSessionMillis(10000);
   flurry.setReportLocation(true);
   flurry.setUseHttps(true);
@@ -16,6 +18,7 @@ if (globals.osname === 'iphone' || globals.osname === 'ipad') {
   flurry.onStartSession('KY6S957MMTP2NVBXXD8B');
   flurry.onEndSession();
 }
+*/
 
 var MainTabView;
 if (globals.osname === 'iphone' || globals.osname === 'android') {
@@ -29,6 +32,14 @@ else {
 if (globals.osname != 'android') {
   new MainTabView().open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
 }
+
+// If there are no sessions, populate the database
+var result = globals.dbGetEvents();
+if (result.length == 0) {
+  Ti.API.info("About to create events");
+  Ti.App.fireEvent('events.update', {prune: true});
+}
+
 new MainTabView().open();
 
 // Global Event Listeners
@@ -60,11 +71,6 @@ Ti.App.addEventListener('events.update', function(args){
     }).show();
   }
 });
-// If there are no sessions, populate the database
-var result = globals.dbGetEvents();
-if (result.length == 0) {
-  Ti.App.fireEvent('events.update', {prune: true});
-}
 
 Ti.App.addEventListener('speakers.update', function(args){
   if (Ti.Network.online) {
