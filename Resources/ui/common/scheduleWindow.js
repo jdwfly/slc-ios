@@ -45,7 +45,14 @@ exports.scheduleWindow = function() {
     }
   });
   instance.add(scheduleTableView);
+  
+  instance.addEventListener('open', function(e) {
+    instance.addEventListener('focus', function(f) {
+      Ti.App.fireEvent('events.update');
+    });
+  });
 
+  
   return instance;
 }
 

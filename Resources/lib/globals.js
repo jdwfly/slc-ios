@@ -90,8 +90,8 @@ exports.slcdbSaveEvents = function(events) {
       parseEvents.nodes[i].node.notes
     );
   }
-  //Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);
-  Ti.App.fireEvent('sessions.updateTableView');
+  Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);
+  Ti.App.fireEvent('schedule.updateTableView');
   _slcDB.close();
 }
 
