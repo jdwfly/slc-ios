@@ -41,14 +41,12 @@
         </backgroundModes>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <tool-api-level>9</tool-api-level>
-        <manifest android:installLocation="auto" android:versionCode="4" android:versionName="2.1">
-            <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="9"/>
+        <manifest android:installLocation="auto" android:versionCode="5" android:versionName="2.2">
             <supports-screens android:anyDensity="false"/>
         </manifest>
     </android>
-    <modules>
+      <modules>
         <module platform="iphone" version="2.5">sg.flurry</module>
-        <module platform="android" version="2.0">sg.flurry</module>
+
     </modules>
 </ti:app>
