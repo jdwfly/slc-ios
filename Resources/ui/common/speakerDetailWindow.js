@@ -118,7 +118,7 @@ exports.speakerDetailWindow = function(opts) {
       sessionRow.add(sessionTitle);
       sessionRow.add(sessionExtra);
       
-      if (node.notes == 'None') {
+      if (node.notes != 'None') {
         notesImage = Ti.UI.createImageView({
           image: '/data/179-notepad.png',
           right: 15,
