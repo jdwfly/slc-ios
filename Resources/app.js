@@ -38,8 +38,9 @@ if (result.length == 0) {
   Ti.API.info("About to create events");
   Ti.App.fireEvent('events.update', {prune: true});
 }
+mainTabView = new MainTabView();
 
-new MainTabView().open();
+mainTabView.open();
 
 // Global Event Listeners
 Ti.App.addEventListener('events.update', function(args){
@@ -110,10 +111,10 @@ Ti.App.addEventListener('schedule.click', function(opts) {
     nodes: nodeData
   };
   var scheduleFirstWin = new winClass(args);
-  Ti.API._activeTab.open(scheduleFirstWin, {animated: true});
+  mainTabView.activeTab.open(scheduleFirstWin, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
-    callback();
+    opts.callback();
   }
 });
 
@@ -122,7 +123,7 @@ Ti.App.addEventListener('session.click', function(opts) {
   var nodeData = globals.dbGetSingleEvent(opts.nid);
   var args = {node: nodeData[0]};
   var audioPlayerWin = new winClass(args);
-  Ti.API._activeTab.open(audioPlayerWin, {animated: true});
+  mainTabView.activeTab.open(audioPlayerWin, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
     opts.callback();
@@ -133,7 +134,7 @@ Ti.App.addEventListener('session.click', function(opts) {
 Ti.App.addEventListener('day.click', function(opts){
   var winClass = require('ui/common/workshopWindow').workshopWindow;
   var workshopWin = new winClass(opts);
-  Ti.API._activeTab.open(workshopWin, {animated: true});
+  mainTabView.activeTab.open(workshopWin, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
     callback();
@@ -154,7 +155,7 @@ Ti.App.addEventListener('map.click', function(opts) {
     Ti.API._activeTab.open(mapDetailWindow, {animated: true});
   }
   */
-  Ti.API._activeTab.open(mapDetailWindow, {animated: true});
+  mainTabView.activeTab.open(mapDetailWindow, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
     callback();
@@ -164,7 +165,7 @@ Ti.App.addEventListener('map.click', function(opts) {
 Ti.App.addEventListener('speakers.click', function(opts) {
   var winClass = require('ui/common/speakerDetailWindow').speakerDetailWindow;
   var speakerDetailWindow = new winClass(opts);
-  Ti.API._activeTab.open(speakerDetailWindow, {animated: true});
+  mainTabView.activeTab.open(speakerDetailWindow, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
     callback();
@@ -175,7 +176,7 @@ Ti.App.addEventListener('live.click', function() {
   if (Ti.Network.online) {
     var winClass = require('ui/iphon/livePlayerWindow').livePlayerWindow;
     var livePlayerWindow = new winClass();
-    Ti.API._activeTab.open(livePlayerWindow, {animated: true});
+    mainTabView.activeTab.open(livePlayerWindow, {animated: true});
   } else {
     var dialog = Ti.UI.createAlertDialog({
       title: 'Oh noes!',
