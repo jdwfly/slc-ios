@@ -37,7 +37,7 @@ exports.liveWindow = function() {
     width: 200,
     height: 40,
     top: 140,
-    backgroundImage: "data/watchlive.png"  
+    backgroundImage: "/data/watchlive.png"  
   });
   liveButton.addEventListener('click', function(f) {
     Ti.App.fireEvent('live.click');
@@ -84,12 +84,12 @@ exports.liveWindow = function() {
   lsServicesView.add(lsSunPM);
   lsServicesView.add(lsWed);
   instance.add(lsServicesView);
-    
-  //tableView.data = data;
-  //instance.add(tableView);
+  
+  tableView.data = data;
+  instance.add(tableView);
   
   instance.addEventListener('focus', function(f) {
-    //Ti.App.fireEvent('live.update');
+    Ti.App.fireEvent('live.update');
   });
   
   return instance;

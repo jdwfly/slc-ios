@@ -53,6 +53,8 @@ exports.mainTabView = function() {
   instance.addTab(speakersTab);
   if (globals.osname === 'iphone' || globals.osname === 'ipad') {
     instance.addTab(liveTab);
+  } else if (globals.osname === 'android' && Ti.Platform.Android.API_LEVEL >= 14) {
+    instance.addTab(liveTab);
   }
   
   // Workaround for not knowing the current tab
