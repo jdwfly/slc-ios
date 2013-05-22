@@ -37,7 +37,8 @@ exports.liveWindow = function() {
     width: 200,
     height: 40,
     top: 140,
-    backgroundImage: "/data/watchlive.png"  
+    backgroundImage: "/data/watchlive.png",
+    color: "#ffffff"
   });
   liveButton.addEventListener('click', function(f) {
     Ti.App.fireEvent('live.click');
@@ -85,7 +86,7 @@ exports.liveWindow = function() {
   lsServicesView.add(lsWed);
   instance.add(lsServicesView);
   
-  tableView.data = data;
+  tableView.setData(data, {animated: false});
   instance.add(tableView);
   
   instance.addEventListener('focus', function(f) {
@@ -102,7 +103,10 @@ function updateLiveData() {
   data = [];
   for (var i = 0, nodes; nodes = parseData.nodes[i]; i++) {
     node = nodes.node; // annoying but needed    
-    var row = Ti.UI.createTableViewRow({height: Ti.UI.FILL, selectionStyle: "none"});
+    var row = Ti.UI.createTableViewRow({
+      height: 40, 
+      selectionStyle: "none"
+    });
     content = Ti.UI.createView({
       height: 'auto',
       width: 'auto',
@@ -140,6 +144,7 @@ function updateLiveData() {
     data.push(row);
     data.push(paddingRow);
   }
+  Ti.API.info(data);
   tableView.setData(data, {animated: false});
 }
 
