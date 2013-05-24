@@ -144,7 +144,7 @@ function updateLiveData() {
     data.push(row);
     data.push(paddingRow);
   }
-  Ti.API.info(data);
+  //Ti.API.info(data);
   tableView.setData(data, {animated: false});
 }
 
