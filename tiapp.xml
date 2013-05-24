@@ -12,12 +12,12 @@
     <sdk-version>3.1.0.GA</sdk-version>
     <id>org.lancasterbaptist.slc</id>
     <name>SLC</name>
-    <version>2.2</version>
+    <version>2.2.1</version>
     <publisher>Lancaster Baptist Church</publisher>
     <url>http://slconference.com</url>
     <description>Spiritual Leadership Conference</description>
     <copyright>2013 by Lancaster Baptist Church</copyright>
-    <icon>icon.png</icon>
+    <icon>Icon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>true</prerendered-icon>
     <statusbar-style>default</statusbar-style>
