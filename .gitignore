@@ -6,4 +6,4 @@ build
 *.log
 *.DS_Store
 .fastdev.lock
-.settings*
+.settings/com.appcelerator.titanium.mobile.prefs
