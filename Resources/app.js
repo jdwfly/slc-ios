@@ -43,6 +43,14 @@ mainTabView = new MainTabView();
 mainTabView.open();
 
 // Global Event Listeners
+Ti.App.addEventListener('play.click', function(args) {
+  flurry.logEvent('Session Play', {
+    title: args.title,
+    speaker: args.speaker,
+    track: args.track
+  });
+});
+
 Ti.App.addEventListener('events.update', function(args){
   if (Ti.Network.online) {
     var events_xhr = new HTTPClientWithCache({
@@ -176,6 +184,7 @@ Ti.App.addEventListener('live.click', function() {
   if (Ti.Network.online) {
     var winClass = require('ui/iphon/livePlayerWindow').livePlayerWindow;
     var livePlayerWindow = new winClass();
+    flurry.logEvent('Livestream Play');
     mainTabView.activeTab.open(livePlayerWindow, {animated: true});
   } else {
     var dialog = Ti.UI.createAlertDialog({
