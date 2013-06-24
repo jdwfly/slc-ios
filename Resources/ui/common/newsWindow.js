@@ -66,7 +66,7 @@ function getVideoData() {
     var videos_xhr = new HTTPClientWithCache({
       baseUrl: 'http://www.lancasterbaptist.org/slc/app/1/',
       retryCount: 2,
-      cacheSeconds: 300,
+      cacheSeconds: 30,
       onload: function(response) {
         //Ti.API.info("Response Data: "+ response.responseText);
         //Ti.API.info("Is this cached data?: " + response.cached);
