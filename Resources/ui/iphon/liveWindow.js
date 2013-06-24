@@ -14,6 +14,7 @@ exports.liveWindow = function() {
   });
   
   // iPhone Specific Code
+  /* Not needed after conference.
   if (globals.osname === 'iphone' || globals.osname === 'ipad') {
     var refresh = Ti.UI.createButton({
       systemButton:Ti.UI.iPhone.SystemButton.REFRESH
@@ -23,6 +24,7 @@ exports.liveWindow = function() {
     });
     instance.rightNavButton = refresh;
   }
+  */
   
   var liveImage = Ti.UI.createImageView({
     image: "/data/livestream.png",
@@ -85,14 +87,14 @@ exports.liveWindow = function() {
   lsServicesView.add(lsSunPM);
   lsServicesView.add(lsWed);
   instance.add(lsServicesView);
-  
+  /*
   tableView.setData(data, {animated: false});
   instance.add(tableView);
   
   instance.addEventListener('focus', function(f) {
     Ti.App.fireEvent('live.update');
   });
-  
+  */
   return instance;
 }
 

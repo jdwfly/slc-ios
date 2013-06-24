@@ -98,29 +98,6 @@ function getSessionData() {
       hasChild: true
     });
     row.node = node;
-    /**
-    row.notes = node.notes;
-    notesImage = Ti.UI.createImageView({
-      image: '/data/notes.png',
-      left: 15,
-      top: 5,
-      height: 74,
-      width: 63
-    });
-    notesImage.notes = node.notes;
-    notesImage.addEventListener('click', function(s) {
-      if (this.notes == "None") {
-        var dialog = Ti.UI.createAlertDialog({
-          message: "We're sorry, but the notes for this session are not available.",
-          ok: 'Okay',
-          title: 'Oh noes!'
-        }).show();
-      } else {
-        Ti.Platform.openURL(this.notes);
-      }
-    });
-    row.add(notesImage);
-    */
     
     textView = Ti.UI.createView({
       top: 5,

@@ -2,14 +2,14 @@ var g = require('lib/globals');
 
 exports.window = function(opts) {
   var instance = Ti.UI.createWindow({
-    backgroundImage: "/data/sessionPlayerBG.png",
+    backgroundImage: "/data/sessionPlayerBG.jpg",
     barColor: '#3b587b'
   });
   //Ti.API.info(opts);
   
   var textView = Ti.UI.createView({
     top: 275,
-    left: 10,
+    right: 10,
     width: 200,
     height: 'auto',
     layout: 'vertical'
@@ -19,28 +19,28 @@ exports.window = function(opts) {
     text: g.html_decode(opts.node.title),
     color: '#273a51',
     font: {fontWeight: 'bold'},
-    left: 0
+    right: 0
   });
   textView.add(titleLabel);
   var speakerLabel = Ti.UI.createLabel({
     text: opts.node.speaker,
     color: '#4d73a0',
     font: {fontSize: 12},
-    left: 0
+    right: 0
   });
   textView.add(speakerLabel);
   var categoryLabel = Ti.UI.createLabel({
     text: g.html_decode(opts.node.track),
     color: '#515151',
     font: {fontSize: 12, fontStyle: 'italic'},
-    left: 0
+    right: 0
   });
   textView.add(categoryLabel);
   instance.add(textView);
   
   var buttonView = Ti.UI.createView({
     top: 275,
-    left: 210,
+    left: 10,
     width: 'auto',
     height: 'auto',
     layout: 'horizontal'
@@ -56,6 +56,11 @@ exports.window = function(opts) {
     //Ti.API.info('Is playing :' + audioPlayer.getPlaying());
     //Ti.API.info('Is paused  :' + audioPlayer.getPaused());
     //Ti.API.info('url        :' + audioPlayer.getUrl());
+    Ti.App.fireEvent('play.click', {
+      title: g.html_decode(opts.node.title),
+      speaker: opts.node.speaker,
+      track: g.html_decode(opts.node.track)
+    });
     if (audioPlayer.getUrl() != opts.node.download) {
       audioPlayer.stop();
       audioPlayer.setUrl(opts.node.download);
