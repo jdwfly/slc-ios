@@ -6,12 +6,13 @@ exports.window = function(opts) {
     barColor: '#3b587b'
   });
   //Ti.API.info(opts);
+
   
   var textView = Ti.UI.createView({
-    top: 275,
+    bottom: 0,
     right: 10,
     width: 200,
-    height: 'auto',
+    height: 100,
     layout: 'vertical'
   });
   
@@ -24,14 +25,14 @@ exports.window = function(opts) {
   textView.add(titleLabel);
   var speakerLabel = Ti.UI.createLabel({
     text: opts.node.speaker,
-    color: '#4d73a0',
+    color: '#273a51',
     font: {fontSize: 12},
     right: 0
   });
   textView.add(speakerLabel);
   var categoryLabel = Ti.UI.createLabel({
     text: g.html_decode(opts.node.track),
-    color: '#515151',
+    color: '#273a51',
     font: {fontSize: 12, fontStyle: 'italic'},
     right: 0
   });
@@ -39,10 +40,10 @@ exports.window = function(opts) {
   instance.add(textView);
   
   var buttonView = Ti.UI.createView({
-    top: 275,
+    bottom: 50,
     left: 10,
     width: 'auto',
-    height: 'auto',
+    height: 44,
     layout: 'horizontal'
   });
   var playButton = Ti.UI.createView({
@@ -91,8 +92,8 @@ exports.window = function(opts) {
       text: 'Notes',
       backgroundColor: '#333333',
       color: '#ffffff',
-      top: 330,
-      left: 210,
+      bottom: 10,
+      left: 10,
       width: 100,
       textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
       borderRadius: 5

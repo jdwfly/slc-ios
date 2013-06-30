@@ -237,4 +237,6 @@ Ti.App.addEventListener('photos.click', function(opts) {
 var audioPlayer = Ti.Media.createAudioPlayer({
   allowBackground: true
 });
-Ti.Media.defaultAudioSessionMode = Ti.Media.AUDIO_SESSION_MODE_PLAYBACK;
+var nowPlaying = {};
+
+Ti.Media.audioSessionMode = Ti.Media.AUDIO_SESSION_MODE_PLAYBACK;
