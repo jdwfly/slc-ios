@@ -96,7 +96,7 @@ exports.liveWindow = function() {
   });
   */
   return instance;
-}
+};
 
 function updateLiveData() {
   //Ti.API.info(globals.liveData());
