@@ -54,7 +54,7 @@ exports.scheduleWindow = function() {
 
   
   return instance;
-}
+};
 
 Ti.App.addEventListener('schedule.updateTableView', function(x) {
   var scheduleData = getEventData();
@@ -174,4 +174,4 @@ function getEventData() {
 
 exports.getMainScheduleData = function() {
   return getEventData();
-}
+};

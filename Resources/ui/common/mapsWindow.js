@@ -19,7 +19,7 @@ exports.mapsWindow = function() {
   instance.add(tableView);
   
   return instance;
-}
+};
 
 // Creates the Table View for the Maps Window/Views
 exports.mapsTableView = function() {
@@ -44,4 +44,4 @@ exports.mapsTableView = function() {
   // No event listener's added here to let each portion do their own thing
   
   return instance;
-}
+};

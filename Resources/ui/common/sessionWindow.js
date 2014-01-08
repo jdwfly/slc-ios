@@ -51,7 +51,7 @@ exports.window = function() {
     search: search,
     searchHidden: false,
     filterAttribute: 'searchTerm'
-  })
+  });
   /**
   tableView.data = getSessionData();
   tableView.search = search;

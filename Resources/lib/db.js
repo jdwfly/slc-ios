@@ -26,5 +26,5 @@ exports.init = function() {
   db.execute();
   
   db.close();
-}
+};
 

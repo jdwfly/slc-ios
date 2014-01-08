@@ -104,7 +104,7 @@ exports.speakersWindow = function() {
   });
   
   return instance;
-}
+};
 
 Ti.App.addEventListener('speakers.updateTableView', function(f){
   updateSpeakerData();

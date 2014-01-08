@@ -2,7 +2,7 @@
 exports.createScrollableGridView = function(params){
     var _p =function(densityPixels){
         return densityPixels*Ti.Platform.displayCaps.dpi/160;
-    }
+    };
  
     var view = Ti.UI.createScrollView({
         scrollType:"vertical",

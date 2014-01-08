@@ -51,7 +51,7 @@ exports.newsWindow = function() {
   });
   
   return instance;
-}
+};
 
 Ti.App.addEventListener('news.updateTableViewData', function(x) {
   getVideoData();
@@ -120,4 +120,4 @@ function getVideoData() {
 
 exports.getNewsVideoData = function() {
   return getVideoData();
-}
+};

@@ -21,7 +21,7 @@ exports.mainTabView = function() {
   });
 
   var mapsWindow = require('ui/common/mapsWindow').mapsWindow;
-  var mapsTab = Ti.UI.createTab({  
+  var mapsTab = Ti.UI.createTab({
     icon: 'data/103-map.png',
     title: 'Maps',
     window: new mapsWindow()
@@ -71,4 +71,4 @@ exports.mainTabView = function() {
   });
   
   return instance;
-}
+};

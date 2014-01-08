@@ -1,6 +1,6 @@
 var _osname = Ti.Platform.osname;
 var _debug = false;
-var _baseUrl = "http://www.lancasterbaptist.org/slc/json";
+var _baseUrl = "http://slconference.com/slc/json";
 var _eventsUrl = "/events";
 var _speakersUrl = "/speakers";
 var _liveUrl = "/liveevents";
@@ -26,11 +26,11 @@ exports.setDebug = function(value) {
   }
   _debug = false;
   return _debug;
-}
+};
 
 exports.debug = function() {
   return _debug;
-}
+};
 
 exports.setSpeakerData = function(value) {
   if (value) {
@@ -38,11 +38,11 @@ exports.setSpeakerData = function(value) {
     return _speakerData;
   }
   return false;
-}
+};
 
 exports.speakerData = function() {
   return _speakerData;
-}
+};
 
 exports.setLiveData = function(value) {
   if (value) {
@@ -50,10 +50,10 @@ exports.setLiveData = function(value) {
     return _liveData;
   }
   return false;
-}
+};
 exports.liveData = function() {
   return _liveData;
-}
+};
 
 exports.nowPlaying = function() {
   return _nowPlaying;
@@ -93,7 +93,7 @@ exports.slcdbSaveEvents = function(events) {
   Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);
   Ti.App.fireEvent('sessions.updateTableView');
   _slcDB.close();
-}
+};
 
 exports.slcdbGetEvents = function(dateString) {
   var results = [];
@@ -119,7 +119,7 @@ exports.slcdbGetEvents = function(dateString) {
   }
   _slcDB.close();
   return results;
-}
+};
 
 exports.dbGetEvents = function() {
   var results = [];
@@ -145,7 +145,7 @@ exports.dbGetEvents = function() {
   }
   _slcDB.close();
   return results;
-}
+};
 
 // nid = Node ID of event requesting
 // returns node data of certain node ID
@@ -173,7 +173,7 @@ exports.dbGetSingleEvent = function(nid) {
   }
   _slcDB.close();
   return results;
-}
+};
 
 // nid = Node of Parent Workshop
 // returns result array of children sessions during parent workshop time
@@ -239,7 +239,7 @@ exports.slcdbGetSessions = function(dateFrom, day) {
   }
   _slcDB.close();
   return results;
-}
+};
 
 /**
  * This will get sessions by speaker
@@ -269,7 +269,7 @@ exports.slcdbGetSessionsSpeaker = function(snid) {
   }
   _slcDB.close();
   return results;
-}
+};
 
 // Helper function that converts seconds into a readable time string
 exports.secondsToTime = function(seconds) {
@@ -299,7 +299,7 @@ exports.secondsToTime = function(seconds) {
   time = hours + ':' + minutes + ' ' + meridiem;
   
   return time;
-}
+};
 
 // Helper function to replace certain encoded characters
 exports.html_decode = function(string) {
@@ -309,7 +309,7 @@ exports.html_decode = function(string) {
   string = string.replace(/&#039;/gi, "'");
   string = string.replace(/&amp;/gi, "&");
   return string;
-}
+};
 
 // Helper function to give the textual representation of the day of the week
 // BOO on you javascript for only giving me a number
@@ -337,7 +337,7 @@ exports.DayofWeek = function(daynum) {
     case 6:
       return "Saturday";
   }
-}
+};
 
 // PHPjs strtotime function
 exports.strtotime = function(str, now) {
@@ -519,7 +519,7 @@ exports.strtotime = function(str, now) {
     }
 
     return now.getTime() / 1000 | 0;
-}
+};
 
 exports.date = function date (format, timestamp) {
     var that = this,
@@ -699,7 +699,7 @@ exports.date = function date (format, timestamp) {
         return format.replace(formatChr, formatChrCb);
     };
     return this.date(format, timestamp);
-}
+};
 
 exports.prettyDate = function(time) {
   var monthname = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -731,7 +731,7 @@ exports.prettyDate = function(time) {
   day_diff == 1 && "Yesterday" ||
   day_diff < 7 && day_diff + " days ago" ||
   day_diff < 31 && Math.ceil( day_diff / 7 ) + " week" + ((Math.ceil( day_diff / 7 )) == 1 ? "" : "s") + " ago";
-}
+};
 
 exports.in_array = function (needle, haystack, argStrict) {
     // http://kevin.vanzonneveld.net
@@ -765,7 +765,7 @@ exports.in_array = function (needle, haystack, argStrict) {
         }
     }
     return false;
-}
+};
 
 exports.array_search = function(needle, haystack, argStrict) {
     // http://kevin.vanzonneveld.net
@@ -807,5 +807,4 @@ exports.array_search = function(needle, haystack, argStrict) {
     }
 
     return false;
-}
-
+};

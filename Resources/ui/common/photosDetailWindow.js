@@ -20,7 +20,7 @@ exports.photosDetailWindow = function(opts) {
     backgroundColor: 'transparent'
   });
   
-  scroll.add(image)
+  scroll.add(image);
   
   instance.add(scroll);
   
