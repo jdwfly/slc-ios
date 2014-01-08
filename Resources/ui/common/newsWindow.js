@@ -64,7 +64,7 @@ Ti.App.addEventListener('news.setTableViewData', function(x) {
 function getVideoData() {
   if (Ti.Network.online){
     var videos_xhr = new HTTPClientWithCache({
-      baseUrl: 'http://www.lancasterbaptist.org/slc/app/1/',
+      baseUrl: 'http://slconference.com/app/1/',
       retryCount: 2,
       cacheSeconds: 30,
       onload: function(response) {

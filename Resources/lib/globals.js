@@ -1,6 +1,6 @@
 var _osname = Ti.Platform.osname;
 var _debug = false;
-var _baseUrl = "http://slconference.com/slc/json";
+var _baseUrl = "http://slconference.com/json";
 var _eventsUrl = "/events";
 var _speakersUrl = "/speakers";
 var _liveUrl = "/liveevents";
