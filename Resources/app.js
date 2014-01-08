@@ -18,7 +18,6 @@ else if (globals.osname === 'android') {
   flurry.onEndSession();
 }
 
-
 var MainTabView;
 if (globals.osname === 'iphone' || globals.osname === 'android') {
   MainTabView = require('/ui/common/mainTabView').mainTabView;
@@ -27,9 +26,6 @@ else {
   MainTabView = require('/ui/common/mainTabView').mainTabView;
   // Commented out iPad interface for now :)
   //MainTabView = require('/ui/ipad/mainSplitView').mainSplitView;
-}
-if (globals.osname != 'android') {
-  new MainTabView().open();
 }
 
 // If there are no sessions, populate the database
@@ -43,6 +39,10 @@ mainTabView = new MainTabView();
 mainTabView.open();
 
 // Global Event Listeners
+
+/*
+ * Logs when a session is played to Flurry
+ */
 Ti.App.addEventListener('play.click', function(args) {
   flurry.logEvent('Session Play', {
     title: args.title,
@@ -51,6 +51,9 @@ Ti.App.addEventListener('play.click', function(args) {
   });
 });
 
+/*
+ * Updates the event data in the db
+ */
 Ti.App.addEventListener('events.update', function(args){
   if (Ti.Network.online) {
     var events_xhr = new HTTPClientWithCache({
