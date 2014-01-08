@@ -29,7 +29,7 @@ else {
   //MainTabView = require('/ui/ipad/mainSplitView').mainSplitView;
 }
 if (globals.osname != 'android') {
-  new MainTabView().open({transition:Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT});
+  new MainTabView().open();
 }
 
 // If there are no sessions, populate the database
