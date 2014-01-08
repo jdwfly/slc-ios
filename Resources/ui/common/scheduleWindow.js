@@ -4,8 +4,7 @@ var scheduleTableView = '';
 exports.scheduleWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Schedule',
-    backgroundColor: '#eeeeee',
-    barColor: '#3b587b'
+    backgroundColor: '#eeeeee'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
   
