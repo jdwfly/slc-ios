@@ -4,21 +4,22 @@ exports.mainTabView = function() {
   
 
   // Not Used after conference
-  /*
   var scheduleWindow = require('ui/common/scheduleWindow').scheduleWindow;
   var scheduleTab = Ti.UI.createTab({  
     icon: 'data/11-clock.png',
     title: 'Schedule',
     window: new scheduleWindow()
   });
-  */
-
+  instance.addTab(scheduleTab);
+  /*
   var sessionWindow = require('ui/common/sessionWindow').window;
   var sessionTab = Ti.UI.createTab({
     icon: 'data/120-headphones.png',
     title: 'Sessions',
     window: new sessionWindow()
   });
+  instance.addTab(sessionTab);
+  */
 
   var mapsWindow = require('ui/common/mapsWindow').mapsWindow;
   var mapsTab = Ti.UI.createTab({
@@ -47,8 +48,7 @@ exports.mainTabView = function() {
     title: 'Live',
     window: new liveWindow()
   });
-    
-  instance.addTab(sessionTab);
+  
   instance.addTab(mapsTab);
   instance.addTab(newsTab);
   instance.addTab(speakersTab);
