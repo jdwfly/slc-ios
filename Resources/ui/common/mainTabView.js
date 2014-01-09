@@ -2,7 +2,7 @@ var globals = require('lib/globals');
 exports.mainTabView = function() {
   var instance = Ti.UI.createTabGroup();
   
-
+  /*
   // Not Used after conference
   var scheduleWindow = require('ui/common/scheduleWindow').scheduleWindow;
   var scheduleTab = Ti.UI.createTab({  
@@ -11,7 +11,7 @@ exports.mainTabView = function() {
     window: new scheduleWindow()
   });
   instance.addTab(scheduleTab);
-  /*
+  */
   var sessionWindow = require('ui/common/sessionWindow').window;
   var sessionTab = Ti.UI.createTab({
     icon: 'data/120-headphones.png',
@@ -19,7 +19,6 @@ exports.mainTabView = function() {
     window: new sessionWindow()
   });
   instance.addTab(sessionTab);
-  */
 
   var mapsWindow = require('ui/common/mapsWindow').mapsWindow;
   var mapsTab = Ti.UI.createTab({
