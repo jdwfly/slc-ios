@@ -1,7 +1,5 @@
 exports.livePlayerWindow = function() {
-  var instance = Ti.UI.createWindow({
-    barColor: '#3b587b'
-  });
+  var instance = Ti.UI.createWindow({});
   instance.orientationModes = [Ti.UI.PORTRAIT, Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT];
   
   var player = Ti.Media.createVideoPlayer({

@@ -6,8 +6,7 @@ var index = [];
 exports.window = function() {
   var instance = Ti.UI.createWindow({
     title: 'Sessions',
-    backgroundColor: '#eeeeee',
-    barColor: '#3b587b'
+    backgroundColor: '#eeeeee'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
 
@@ -132,13 +131,17 @@ function getSessionData() {
     textView.add(categoryLabel);
     
     row.add(textView);
+    /*
+     TODO iOS 7 has a line so this can be removed
     row.add(Ti.UI.createView({
       bottom: 0,
       width: "90%",
       height: 1,
       backgroundColor: '#e0e0e0'
     }));
+    */
     data.push(row);
+   
   }
   return data;
 }
