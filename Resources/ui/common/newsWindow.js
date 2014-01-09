@@ -8,8 +8,7 @@ var newsTableView = '',
 exports.newsWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Videos',
-    backgroundColor: '#eeeeee',
-    barColor: '#3b587b'
+    backgroundColor: '#eeeeee'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
   

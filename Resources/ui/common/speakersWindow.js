@@ -52,8 +52,7 @@ function updateSpeakerData() {
 exports.speakersWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Speakers',
-    backgroundColor: '#eeeeee',
-    barColor: '#3b587b'
+    backgroundColor: '#eeeeee'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
   

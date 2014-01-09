@@ -51,7 +51,6 @@ exports.scheduleWindow = function() {
     });
   });
 
-  
   return instance;
 };
 
@@ -96,7 +95,7 @@ function getEventData() {
     });
     roomLabel = Ti.UI.createLabel({
       text: room,
-      color: '#4d73a0',
+      color: '#20607c',
       top: 5,
       width: 'auto',
       height: 'auto',
@@ -142,7 +141,7 @@ function getEventData() {
       });
       var headerLabel = Ti.UI.createLabel({
         text: formattedDay,
-        color: '#44658e',
+        color: '#20607c',
         font: {fontSize: 20, fontWeight: 'bold'},
         left: 25
       });

@@ -9,8 +9,7 @@ var data = [];
 exports.liveWindow = function() {
   var instance = Ti.UI.createWindow({
     title: 'Live Stream',
-    backgroundColor: '#e9e9e9',
-    barColor: '#3b587b'
+    backgroundColor: '#e9e9e9'
   });
   
   // iPhone Specific Code
@@ -28,9 +27,9 @@ exports.liveWindow = function() {
   
   var liveImage = Ti.UI.createImageView({
     image: "/data/livestream.png",
-    top: 5,
-    width: 142,
-    height: 142
+    top: 20,
+    width: 300,
+    height: 103
   });
   instance.add(liveImage);
   var liveButton = Ti.UI.createButton({
@@ -77,7 +76,7 @@ exports.liveWindow = function() {
     width: 'auto'
   });
   var lsWed = Ti.UI.createLabel({
-    text: 'Wednesday Evening @ 7 pm',
+    text: 'Thursday Evening @ 7 pm',
     font: {fontSize: '14', fontWeight: 'bold'},
     color: "#313131",
     height: 'auto',
