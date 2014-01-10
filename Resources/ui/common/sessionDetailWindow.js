@@ -2,12 +2,9 @@ var g = require('lib/globals');
 
 exports.window = function(opts) {
   var instance = Ti.UI.createWindow({
-    backgroundImage: "/data/sessionPlayerBG.jpg",
-    barColor: '#3b587b'
+    backgroundImage: "/data/sessionPlayerBG.jpg"
   });
-  //Ti.API.info(opts);
 
-  
   var textView = Ti.UI.createView({
     bottom: 0,
     right: 10,
