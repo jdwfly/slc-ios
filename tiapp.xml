@@ -12,11 +12,11 @@
     <sdk-version>3.2.0.GA</sdk-version>
     <id>org.lancasterbaptist.slc</id>
     <name>SLC</name>
-    <version>2.3</version>
+    <version>2.4</version>
     <publisher>Lancaster Baptist Church</publisher>
     <url>http://slconference.com</url>
     <description>Spiritual Leadership Conference</description>
-    <copyright>2013 by Lancaster Baptist Church</copyright>
+    <copyright>2014 by Lancaster Baptist Church</copyright>
     <icon>Icon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>true</prerendered-icon>
@@ -41,7 +41,7 @@
         </backgroundModes>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:installLocation="auto" android:versionCode="6" android:versionName="2.3">
+        <manifest android:installLocation="auto" android:versionCode="7" android:versionName="2.4">
             <supports-screens android:anyDensity="false"/>
         </manifest>
     </android>
