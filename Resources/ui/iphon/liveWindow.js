@@ -69,7 +69,7 @@ exports.liveWindow = function() {
     width: 'auto'
   });
   var lsSunPM = Ti.UI.createLabel({
-    text: 'Sunday Evening @ 5:30 pm',
+    text: 'Sunday Evening @ 5 pm',
     font: {fontSize: '14', fontWeight: 'bold'},
     color: "#313131",
     height: 'auto',
