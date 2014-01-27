@@ -1,25 +1,16 @@
 // GLOBAL VARS
 var globals = require('lib/globals');
 var HTTPClientWithCache = require('lib/HTTPClientWithCache').HTTPClientWithCache;
-var flurry = require('sg.flurry');
 
-if (globals.osname === 'iphone' || globals.osname === 'ipad') {
-  flurry.secureTransport(true);
-  flurry.logUncaughtExceptions(true);
-  flurry.crashReportingEnabled(true);
-  flurry.startSession('4FIT53J4GC77BQB84HX2');
-} 
-else if (globals.osname === 'android') {
-  flurry.setContinueSessionMillis(10000);
-  flurry.setReportLocation(true);
-  flurry.setUseHttps(true);
-  flurry.setCaptureUncaughtExceptions(true);
-  flurry.onStartSession('KY6S957MMTP2NVBXXD8B');
-  flurry.onEndSession();
-}
+// Initialize Flurry Analytics
+var flurry = require('sg.flurry');
+flurry.secureTransport(true);
+flurry.logUncaughtExceptions(true);
+flurry.crashReportingEnabled(true);
+flurry.startSession('4FIT53J4GC77BQB84HX2');
 
 var MainTabView;
-if (globals.osname === 'iphone' || globals.osname === 'android') {
+if (globals.osname === 'iphone') {
   MainTabView = require('/ui/common/mainTabView').mainTabView;
 }
 else {
@@ -138,17 +129,6 @@ Ti.App.addEventListener('session.click', function(opts) {
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
     opts.callback();
-  }
-});
-
-// TODO: Remove this code, no longer needed.
-Ti.App.addEventListener('day.click', function(opts){
-  var winClass = require('ui/common/workshopWindow').workshopWindow;
-  var workshopWin = new winClass(opts);
-  mainTabView.activeTab.open(workshopWin, {animated: true});
-  // Run user supplied callback
-  if (typeof opts.callback === 'function') {
-    callback();
   }
 });
 
