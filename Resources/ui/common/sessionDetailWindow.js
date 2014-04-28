@@ -7,46 +7,46 @@ exports.window = function(opts) {
 
   var textView = Ti.UI.createView({
     bottom: 0,
-    right: 10,
-    width: 200,
-    height: 100,
+    right: "10dp",
+    width: "200dp",
+    height: "100dp",
     layout: 'vertical'
   });
   
   var titleLabel = Ti.UI.createLabel({
     text: g.html_decode(opts.node.title),
     color: '#273a51',
-    font: {fontWeight: 'bold'},
+    font: {fontWeight: 'bold', fontSize: "14dp"},
     right: 0
   });
   textView.add(titleLabel);
   var speakerLabel = Ti.UI.createLabel({
     text: opts.node.speaker,
     color: '#273a51',
-    font: {fontSize: 12},
+    font: {fontSize: "12dp"},
     right: 0
   });
   textView.add(speakerLabel);
   var categoryLabel = Ti.UI.createLabel({
     text: g.html_decode(opts.node.track),
     color: '#273a51',
-    font: {fontSize: 12, fontStyle: 'italic'},
+    font: {fontSize: "12dp", fontStyle: 'italic'},
     right: 0
   });
   textView.add(categoryLabel);
   instance.add(textView);
   
   var buttonView = Ti.UI.createView({
-    bottom: 50,
-    left: 10,
+    bottom: "50dp",
+    left: "10dp",
     width: 'auto',
-    height: 44,
+    height: "44dp",
     layout: 'horizontal'
   });
   var playButton = Ti.UI.createView({
     backgroundImage: '/data/36-circle-play.png',
-    width: 44,
-    height: 44
+    width: "44dp",
+    height: "44dp"
   });
   playButton.addEventListener('click', function(e) {
     //Ti.API.info('Play was clicked');
@@ -74,9 +74,9 @@ exports.window = function(opts) {
   buttonView.add(playButton);
   var pauseButton = Ti.UI.createView({
     backgroundImage: '/data/37-circle-pause.png',
-    width: 44,
-    height: 44,
-    left: 10
+    width: "44dp",
+    height: "44dp",
+    left: "10dp"
   });
   pauseButton.addEventListener('click', function(e) {
     audioPlayer.pause();
@@ -89,9 +89,10 @@ exports.window = function(opts) {
       text: 'Notes',
       backgroundColor: '#333333',
       color: '#ffffff',
-      bottom: 10,
-      left: 10,
-      width: 100,
+      bottom: "10dp",
+      left: "10dp",
+      width: "100dp",
+      font: {fontSize: "12dp"},
       textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
       borderRadius: 5
     });
