@@ -163,20 +163,8 @@ Ti.App.addEventListener('speakers.click', function(opts) {
   }
 });
 
-Ti.App.addEventListener('live.click', function() {
-  if (Ti.Network.online) {
-    var winClass = require('ui/iphon/livePlayerWindow').livePlayerWindow;
-    var livePlayerWindow = new winClass();
-    flurry.logEvent('Livestream Play');
-    mainTabView.activeTab.open(livePlayerWindow, {animated: true});
-  } else {
-    var dialog = Ti.UI.createAlertDialog({
-      title: 'Oh noes!',
-      message: 'You must be online in order to access our live stream events.',
-      ok: 'Okay'
-    }).show();
-  }
-});
+Ti.App.addEventListener('live.click', liveClick = require('lib/events').liveClick);
+
 Ti.App.addEventListener('live.update', function(args) {
   if (Ti.Network.online) {
     var live_xhr = new HTTPClientWithCache({
