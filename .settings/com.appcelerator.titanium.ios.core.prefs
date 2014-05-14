@@ -1,11 +1,11 @@
 eclipse.preferences.version=1
 iosLaunchConfigurationAttributes/ATTR_MINIFY=true
-iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=SLC2
+iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=slc-ios
 iosLaunchConfigurationAttributes/appid=org.lancasterbaptist.slc
-iosLaunchConfigurationAttributes/certificate=Lancaster Baptist Church (MW5Q7C3W7U)
+iosLaunchConfigurationAttributes/certificate=Jeremy Lofgren (237VG98FJ5)
 iosLaunchConfigurationAttributes/keychain=
-iosLaunchConfigurationAttributes/sdk_version=7.0.3
-iosLaunchConfigurationAttributes/uuid=F70F5D48-D1BA-4685-A515-E40C7960487C
+iosLaunchConfigurationAttributes/sdk_version=7.1
+iosLaunchConfigurationAttributes/uuid=B4229DBE-3398-477E-8BCC-73613CC198CF
 provisioning_profiles/development/8A76BE2A-6D0A-4D74-A69B-0E4A8B73A76B/appid=org.lancasterbaptist.slc
 provisioning_profiles/development/8A76BE2A-6D0A-4D74-A69B-0E4A8B73A76B/name=SLC
 provisioning_profiles/development/8A76BE2A-6D0A-4D74-A69B-0E4A8B73A76B/uuid=8A76BE2A-6D0A-4D74-A69B-0E4A8B73A76B
