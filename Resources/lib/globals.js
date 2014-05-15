@@ -105,6 +105,7 @@ exports.dbGetEvents = function() {
     });
     resultSet.next();
   }
+  resultSet.close();
   _slcDB.close();
   return results;
 };
@@ -133,6 +134,7 @@ exports.dbGetSingleEvent = function(nid) {
     });
     resultSet.next();
   }
+  resultSet.close();
   _slcDB.close();
   return results;
 };
@@ -162,6 +164,7 @@ exports.dbGetWorkshopEvents = function(nid) {
     });
     resultSet.next();
   }
+  resultSet.close();
   _slcDB.close();
   return results;
 };
@@ -199,6 +202,7 @@ exports.slcdbGetSessions = function(dateFrom, day) {
     });
     resultSet.next();
   }
+  resultSet.close();
   _slcDB.close();
   return results;
 };
@@ -229,6 +233,7 @@ exports.slcdbGetSessionsSpeaker = function(snid) {
     });
     resultSet.next();
   }
+  resultSet.close();
   _slcDB.close();
   return results;
 };
