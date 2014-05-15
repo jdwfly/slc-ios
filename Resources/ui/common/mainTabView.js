@@ -67,18 +67,5 @@ exports.mainTabView = function() {
     instance.addTab(liveTab);
   }
 
-  // Workaround for not knowing the current tab
-  // http://developer.appcelerator.com/question/98501/titaniumuicurrenttab-is-null
-  /*
-  instance.addEventListener('focus', function(e) {
-    instance._activeTab = e.tab;
-    instance._activeTabIndex = e.index;
-    if (instance._activeTabIndex == -1) return;
-    //Ti.API.info(instance._activeTabIndex);
-    //Ti.API.info(instance._activeTab.title);
-    Ti.API._activeTab = instance._activeTab;
-    //Ti.API.info(Ti.API._activeTab.title);
-  });
-  */
   return instance;
 };
