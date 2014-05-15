@@ -9,15 +9,12 @@ flurry.logUncaughtExceptions(true);
 flurry.crashReportingEnabled(true);
 flurry.startSession('4FIT53J4GC77BQB84HX2');
 
-var MainTabView;
-if (globals.osname === 'iphone') {
-  MainTabView = require('/ui/common/mainTabView').mainTabView;
-}
-else {
-  MainTabView = require('/ui/common/mainTabView').mainTabView;
-  // Commented out iPad interface for now :)
-  //MainTabView = require('/ui/ipad/mainSplitView').mainSplitView;
-}
+// Grab the config.json file
+var configFile = Ti.Filesystem.getFile("config.json");
+var preParseData = (configFile.read().text);
+var config = JSON.parse(preParseData);
+
+var MainTabView = require('/ui/common/mainTabView').mainTabView;
 
 // If there are no sessions, populate the database
 var result = globals.dbGetEvents();
@@ -30,168 +27,37 @@ mainTabView = new MainTabView();
 mainTabView.open();
 
 // Global Event Listeners
+// see lib/events.js for information
+var events = require('lib/events');
+Ti.App.addEventListener('play.click', events.playClick);
 
-/*
- * Logs when a session is played to Flurry
- */
-Ti.App.addEventListener('play.click', function(args) {
-  flurry.logEvent('Session Play', {
-    title: args.title,
-    speaker: args.speaker,
-    track: args.track
-  });
-});
+Ti.App.addEventListener('events.update', events.eventsUpdate);
 
-/*
- * Updates the event data in the db
- */
-Ti.App.addEventListener('events.update', function(args){
-  if (Ti.Network.online) {
-    var events_xhr = new HTTPClientWithCache({
-      baseUrl: globals.baseUrl,
-      retryCount: 2,
-      cacheSeconds: 300,
-      onload: function(response) {
-        //Ti.API.info("Response Data: "+ response.responseText);
-        //Ti.API.info("Is this cached data?: " + response.cached);
-        globals.slcdbSaveEvents(response.responseText);
-        if (typeof args.callback === 'function') {
-          args.callback;
-        }
-      }
-    });
-    if (args.prune) {
-      events_xhr.prune_cache(0);
-    }
-    events_xhr.post({url: globals.eventsUrl});
-  } else {
-    // Maybe this should fail silently with just a log message
-    var dialog = Ti.UI.createAlertDialog({
-      message: 'You must be online to refresh the schedule data.',
-      ok: 'Okay',
-      title: 'Oh noes!'
-    }).show();
-  }
-});
+if (config.tabs.schedule === true) {
+  Ti.App.addEventListener('schedule.click', events.scheduleClick);
+}
 
-Ti.App.addEventListener('speakers.update', function(args){
-  if (Ti.Network.online) {
-    var speakers_xhr = new HTTPClientWithCache({
-      baseUrl: globals.baseUrl,
-      retryCount: 2,
-      cacheSeconds: 300,
-      onload: function(response) {
-        //Ti.API.info("Response Data: "+ response.responseText);
-        //Ti.API.info("Is this cached data?: " + response.cached);
-        globals.setSpeakerData(response.responseText);
-        Ti.App.fireEvent('speakers.updateTableView');
-        if (typeof args.callback === 'function') {
-          args.callback;
-        }
-      }
-    });
-    if (args.prune) {
-      speakers_xhr.prune_cache(0);
-    }
-    speakers_xhr.post({url: globals.speakersUrl});
-  } else {
-    // Maybe this should fail silently with just a log message
-    var dialog = Ti.UI.createAlertDialog({
-      message: 'You must be online to refresh the speakers data.',
-      ok: 'Okay',
-      title: 'Oh noes!'
-    }).show();
-  }
-});
+if (config.tabs.session === true) {
+  Ti.App.addEventListener('session.click', events.sessionClick);
+}
 
-Ti.App.addEventListener('schedule.click', function(opts) {
-  var winClass = require('ui/common/workshopWindow').workshopWindow;
-  var nodeData = globals.dbGetWorkshopEvents(opts.nid);
-  var workshop = globals.dbGetSingleEvent(opts.nid);
-  var args = {
-    workshop: workshop,
-    nodes: nodeData
-  };
-  var scheduleFirstWin = new winClass(args);
-  mainTabView.activeTab.open(scheduleFirstWin, {animated: true});
-  // Run user supplied callback
-  if (typeof opts.callback === 'function') {
-    opts.callback();
-  }
-});
+if (config.tabs.maps === true) {
+  Ti.App.addEventListener('map.click', events.mapClick);
+}
 
-Ti.App.addEventListener('session.click', function(opts) {
-  var winClass = require('ui/common/sessionDetailWindow').window;
-  var nodeData = globals.dbGetSingleEvent(opts.nid);
-  var args = {node: nodeData[0]};
-  var audioPlayerWin = new winClass(args);
-  mainTabView.activeTab.open(audioPlayerWin, {animated: true});
-  // Run user supplied callback
-  if (typeof opts.callback === 'function') {
-    opts.callback();
-  }
-});
+if (config.tabs.speakers === true) {
+  Ti.App.addEventListener('speakers.click', events.speakersClick);
+  Ti.App.addEventListener('speakers.update', events.speakersUpdate);
+}
 
-Ti.App.addEventListener('map.click', function(opts) {
-  var winClass = require('ui/common/staticPageWindow').staticPageWindow;
-  var mapDetailWindow = new winClass(opts);
-  mainTabView.activeTab.open(mapDetailWindow, {animated: true});
-  // Run user supplied callback
-  if (typeof opts.callback === 'function') {
-    callback();
-  }
-});
+if (config.tabs.live === true) {
+  Ti.App.addEventListener('live.click', events.liveClick);
+  Ti.App.addEventListener('live.update', events.liveUpdate);
+}
 
-Ti.App.addEventListener('speakers.click', function(opts) {
-  var winClass = require('ui/common/speakerDetailWindow').speakerDetailWindow;
-  var speakerDetailWindow = new winClass(opts);
-  mainTabView.activeTab.open(speakerDetailWindow, {animated: true});
-  // Run user supplied callback
-  if (typeof opts.callback === 'function') {
-    callback();
-  }
-});
-
-Ti.App.addEventListener('live.click', liveClick = require('lib/events').liveClick);
-
-Ti.App.addEventListener('live.update', function(args) {
-  if (Ti.Network.online) {
-    var live_xhr = new HTTPClientWithCache({
-      baseUrl: globals.baseUrl,
-      retryCount: 2,
-      cacheSeconds: 300,
-      onload: function(response) {
-        //Ti.API.info("Response Data: "+ response.responseText);
-        //Ti.API.info("Is this cached data?: " + response.cached);
-        globals.setLiveData(response.responseText);
-        Ti.App.fireEvent('live.updateTableView');
-        if (typeof args.callback === 'function') {
-          args.callback;
-        }
-      }
-    });
-    if (args.prune) {
-      live_xhr.prune_cache(0);
-    }
-    live_xhr.post({url: globals.liveUrl});
-  } else {
-    var dialog = Ti.UI.createAlertDialog({
-      title: 'Oh noes!',
-      message: 'You must be online in order to update the live stream event feed.',
-      ok: 'Okay'
-    }).show();
-  }
-});
-
-Ti.App.addEventListener('photos.click', function(opts) {
-  var winClass = require('ui/common/photosDetailWindow').photosDetailWindow;
-  var photoDetailWindow = new winClass(opts);
-  if (globals.osname != 'android') photoDetailWindow.hideTabBar();
-  mainTabView.activeTab.open(photoDetailWindow, {animated: true});
-  if (typeof opts.callback === 'function') {
-    callback();
-  }
-});
+if (config.tabs.news === true) {
+  Ti.App.addEventListener('photos.click', events.photosClick);
+}
 
 // Audio Player init - Not sure where else to do this
 var audioPlayer = Ti.Media.createAudioPlayer({
