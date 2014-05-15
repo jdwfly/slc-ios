@@ -2,33 +2,17 @@ var globals = require('lib/globals');
 exports.workshopWindow = function(opts) {
   var instance = Ti.UI.createWindow({
     title: opts.workshop[0].title,
-    backgroundColor: '#eeeeee',
-    barColor: '#3b587b'
+    backgroundColor: '#eeeeee'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
   
-  // Android Specific Code
-  if (globals.osname === 'android') {
-    instance.backgroundColor = "#111111";
-    instance.activity.onCreateOptionsMenu = function(e) {
-      var menu = e.menu;
-      var menuItem = menu.add({title:"Refresh"});
-      menuItem.addEventListener("click", function(e) {
-        Ti.App.fireEvent('events.update');
-      });
-    };
-  }
-  
-  // iPhone Specific Code
-  if (globals.osname === 'iphone') {
-    var refresh = Ti.UI.createButton({
-      systemButton:Ti.UI.iPhone.SystemButton.REFRESH
-    });
-    refresh.addEventListener('click', function(e) {
-      Ti.App.fireEvent('events.update');
-    });
-    instance.rightNavButton = refresh;
-  }
+  var refresh = Ti.UI.createButton({
+    systemButton:Ti.UI.iPhone.SystemButton.REFRESH
+  });
+  refresh.addEventListener('click', function(e) {
+    Ti.App.fireEvent('events.update');
+  });
+  instance.rightNavButton = refresh;
   
   var tableData = [], workshopTableView, row, title, titleLabel, notesImage,
     textView, speaker, speakerLabel, category, categoryLabel, room;
