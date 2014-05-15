@@ -1,0 +1,10 @@
+{
+  "tabs": {
+    "schedule": true,
+    "session": false,
+    "maps": true,
+    "news": true,
+    "speakers": true,
+    "live": true
+  }
+}
