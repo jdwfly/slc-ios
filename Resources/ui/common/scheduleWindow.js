@@ -7,29 +7,14 @@ exports.scheduleWindow = function() {
     backgroundColor: '#eeeeee'
   });
   instance.orientationModes = [Ti.UI.PORTRAIT];
-  
-  // Android Specific Code
-  if (globals.osname === 'android') {
-    instance.backgroundColor = "#111111";
-    instance.activity.onCreateOptionsMenu = function(e) {
-      var menu = e.menu;
-      var menuItem = menu.add({title:"Refresh"});
-      menuItem.addEventListener("click", function(e) {
-        Ti.App.fireEvent('events.update');
-      });
-    };
-  }
-  
-  // iPhone Specific Code
-  if (globals.osname === 'iphone' || globals.osname === 'ipad') {
-    var refresh = Ti.UI.createButton({
-      systemButton:Ti.UI.iPhone.SystemButton.REFRESH
-    });
-    refresh.addEventListener('click', function(e) {
-      Ti.App.fireEvent('events.update', {prune: true});
-    });
-    instance.rightNavButton = refresh;
-  }
+
+  var refresh = Ti.UI.createButton({
+    systemButton:Ti.UI.iPhone.SystemButton.REFRESH
+  });
+  refresh.addEventListener('click', function(e) {
+    Ti.App.fireEvent('events.update', {prune: true});
+  });
+  instance.rightNavButton = refresh;
 
   var scheduleData = getEventData();
   scheduleTableView = Ti.UI.createTableView({
@@ -38,7 +23,6 @@ exports.scheduleWindow = function() {
     backgroundColor: '#eeeeee'
   });
   scheduleTableView.addEventListener('click', function(x) {
-    //Ti.API.info("x = "+x.row.hasChild);
     if (x.row.hasChild) {
       Ti.App.fireEvent('schedule.click', {nid: x.row.nid});
     }
@@ -150,17 +134,10 @@ function getEventData() {
         height: 16,
         backgroundColor: '#eeeeee'
       });
-      if (globals.osname === "android") {
-        currentSection = Ti.UI.createTableViewSection({
-          headerTitle: formattedDay,
-          footerView: footerView
-        });
-      } else {
-        currentSection = Ti.UI.createTableViewSection({
-          headerView: headerView,
-          footerView: footerView
-        });
-      }
+      currentSection = Ti.UI.createTableViewSection({
+        headerView: headerView,
+        footerView: footerView
+      });
       currentSection.add(row);
     }
     header = currentDay;
