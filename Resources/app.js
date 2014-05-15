@@ -63,6 +63,5 @@ if (config.tabs.news === true) {
 var audioPlayer = Ti.Media.createAudioPlayer({
   allowBackground: true
 });
-var nowPlaying = {};
 
 Ti.Media.audioSessionMode = Ti.Media.AUDIO_SESSION_MODE_PLAYBACK;

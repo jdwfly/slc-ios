@@ -9,7 +9,6 @@ _slcDB.execute('CREATE TABLE IF NOT EXISTS events (nid INTEGER, title TEXT, even
 _slcDB.close();
 var _speakerData = "";
 var _liveData = "";
-var _nowPlaying = "";
 
 exports.osname = _osname;
 exports.baseUrl = _baseUrl;
@@ -55,17 +54,6 @@ exports.liveData = function() {
   return _liveData;
 };
 
-exports.nowPlaying = function() {
-  return _nowPlaying;
-};
-exports.setNowPlaying = function(value) {
-  if (value) {
-    _nowPlaying = value;
-    return _nowPlaying;
-  }
-  return false;
-};
-
 exports.slcdbSaveEvents = function(events) {
   _slcDB = Ti.Database.open('slcdb');
   _slcDB.execute('DROP TABLE IF EXISTS events');
@@ -91,34 +79,8 @@ exports.slcdbSaveEvents = function(events) {
     );
   }
   Ti.API.info('DB:LAST ROW INSERTED, lastInsertRowId = ' + _slcDB.lastInsertRowId);
-  Ti.App.fireEvent('sessions.updateTableView');
+  Ti.App.fireEvent('schedule.updateTableView');
   _slcDB.close();
-};
-
-exports.slcdbGetEvents = function(dateString) {
-  var results = [];
-  _slcDB = Ti.Database.open('slcdb');
-  var resultSet = _slcDB.execute('SELECT * FROM events WHERE eventtype<>"Session" AND day="'+dateString+'" ORDER BY datefrom ASC');
-  //Ti.API.info('slcdbGetEvents ROWS FETCHED = ' + resultSet.getRowCount());
-  while (resultSet.isValidRow()) {
-    results.push({
-      nid: resultSet.fieldByName('nid'),
-      title: resultSet.fieldByName('title'),
-      eventtype: resultSet.fieldByName('eventtype'),
-      day: resultSet.fieldByName('day'),
-      datefrom: resultSet.fieldByName('datefrom'),
-      dateto: resultSet.fieldByName('dateto'),
-      speaker: resultSet.fieldByName('speaker'),
-      room: resultSet.fieldByName('room'),
-      track: resultSet.fieldByName('track'),
-      weight: resultSet.fieldByName('weight'),
-      download: resultSet.fieldByName('download'),
-      notes: resultSet.fieldByName('notes')
-    });
-    resultSet.next();
-  }
-  _slcDB.close();
-  return results;
 };
 
 exports.dbGetEvents = function() {
@@ -699,72 +661,6 @@ exports.date = function date (format, timestamp) {
         return format.replace(formatChr, formatChrCb);
     };
     return this.date(format, timestamp);
-};
-
-exports.prettyDate = function(time) {
-  var monthname = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  var date = new Date(time*1000),
-  diff = (((new Date()).getTime() - date.getTime()) / 1000),
-  day_diff = Math.floor(diff / 86400);
-  if ( isNaN(day_diff) || day_diff < 0 ){
-    return '';
-  }
-  if(day_diff >= 31){
-    var date_year = date.getFullYear();
-    var month_name = monthname[date.getMonth()];
-    var date_month = date.getMonth() + 1;
-    if(date_month < 10){
-      date_month = "0"+date_month;
-    }
-    var date_monthday = date.getDate();
-    if(date_monthday < 10){
-      date_monthday = "0"+date_monthday;
-    }
-    return date_monthday + " " + month_name + " " + date_year;
-  }
-  return day_diff == 0 && (
-    diff < 60 && "just now" ||
-    diff < 120 && "1 minute ago" ||
-    diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
-    diff < 7200 && "1 hour ago" ||
-    diff < 86400 && "about " + Math.floor( diff / 3600 ) + " hours ago") ||
-  day_diff == 1 && "Yesterday" ||
-  day_diff < 7 && day_diff + " days ago" ||
-  day_diff < 31 && Math.ceil( day_diff / 7 ) + " week" + ((Math.ceil( day_diff / 7 )) == 1 ? "" : "s") + " ago";
-};
-
-exports.in_array = function (needle, haystack, argStrict) {
-    // http://kevin.vanzonneveld.net
-    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-    // +   improved by: vlado houba
-    // +   input by: Billy
-    // +   bugfixed by: Brett Zamir (http://brett-zamir.me)
-    // *     example 1: in_array('van', ['Kevin', 'van', 'Zonneveld']);
-    // *     returns 1: true
-    // *     example 2: in_array('vlado', {0: 'Kevin', vlado: 'van', 1: 'Zonneveld'});
-    // *     returns 2: false
-    // *     example 3: in_array(1, ['1', '2', '3']);
-    // *     returns 3: true
-    // *     example 3: in_array(1, ['1', '2', '3'], false);
-    // *     returns 3: true
-    // *     example 4: in_array(1, ['1', '2', '3'], true);
-    // *     returns 4: false
-    var key = '',
-        strict = !! argStrict;
-    if (strict) {
-        for (key in haystack) {
-            if (haystack[key] === needle) {
-                return true;
-            }
-        }
-    } else {
-        for (key in haystack) {
-            if (haystack[key] == needle) {
-                return true;
-            }
-        }
-    }
-    return false;
 };
 
 exports.array_search = function(needle, haystack, argStrict) {
