@@ -135,17 +135,6 @@ Ti.App.addEventListener('session.click', function(opts) {
 Ti.App.addEventListener('map.click', function(opts) {
   var winClass = require('ui/common/staticPageWindow').staticPageWindow;
   var mapDetailWindow = new winClass(opts);
-  /**
-  if (globals.osname === "ipad") {
-    Ti.App.fireEvent('detailView.change', {
-      requirejs: 'ui/common/staticPageWindow',
-      classname: 'staticPageWindow',
-      args: opts
-    });
-  } else {
-    Ti.API._activeTab.open(mapDetailWindow, {animated: true});
-  }
-  */
   mainTabView.activeTab.open(mapDetailWindow, {animated: true});
   // Run user supplied callback
   if (typeof opts.callback === 'function') {
@@ -198,7 +187,7 @@ Ti.App.addEventListener('photos.click', function(opts) {
   var winClass = require('ui/common/photosDetailWindow').photosDetailWindow;
   var photoDetailWindow = new winClass(opts);
   if (globals.osname != 'android') photoDetailWindow.hideTabBar();
-  Ti.API._activeTab.open(photoDetailWindow, {animated: true});
+  mainTabView.activeTab.open(photoDetailWindow, {animated: true});
   if (typeof opts.callback === 'function') {
     callback();
   }

@@ -152,7 +152,7 @@ exports.workshopWindow = function(opts) {
             });
             audioWindow.add(playButton);
             
-            Ti.API._activeTab.open(audioWindow, {animated: true});
+            mainTabView.activeTab.open(audioWindow, {animated: true});
           }
           if (options[f.index] == 'Download Session') {
             // TODO
