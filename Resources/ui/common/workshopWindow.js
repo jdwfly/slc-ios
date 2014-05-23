@@ -99,7 +99,7 @@ exports.workshopWindow = function(opts) {
         height: 1,
         backgroundColor: '#e0e0e0'
       }));
-      
+      /*
       row.addEventListener('click', function(e) {
         //Ti.API.info(JSON.stringify(e.row));
         var options = [];
@@ -144,6 +144,7 @@ exports.workshopWindow = function(opts) {
         });
         sessionDialog.show();
       });
+      */
       
       tableData.push(row);
     }
