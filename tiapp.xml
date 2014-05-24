@@ -12,7 +12,7 @@
     <sdk-version>3.2.3.GA</sdk-version>
     <id>org.lancasterbaptist.slc</id>
     <name>SLC</name>
-    <version>2.4</version>
+    <version>2.4.1</version>
     <publisher>Lancaster Baptist Church</publisher>
     <url>http://slconference.com</url>
     <description>Spiritual Leadership Conference</description>
